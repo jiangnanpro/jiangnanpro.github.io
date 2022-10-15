@@ -7,7 +7,7 @@ subtitle: Ph.D. candidate @ Radboud University
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: true # crops the image to make it circular
   address: >
     <p>jiangnan.huang [at] ru.nl</p>
     <p>Radboud University</p>
