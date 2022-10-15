@@ -3,4 +3,10 @@
   color: "#00369f"
 
 "PhysRev":
-  url: https://journals.aps.org/
+  url: https://journals.aps.org
+
+"OLA2021":
+  url: https://ola2021.sciencesconf.org/
+
+"Algorithms":
+  url: https://www.mdpi.com/journal/algorithms

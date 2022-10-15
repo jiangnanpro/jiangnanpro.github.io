@@ -2,96 +2,56 @@
   type: map
   contents:
     - name: Full Name
-      value: Albert Einstein
-    - name: Date of Birth
-      value: 14th March 1879
+      value: Jiangnan HUANG
     - name: Languages
-      value: English, German
+      value: English, French, Chinese
 
 - title: Education
   type: time_table
   contents:
-    - title: PhD
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1905
-      description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Federal teaching diploma
-      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
-      description:
-        - Description 1.
-        - Description 2.
+    - title: Ph.D. candidate
+      institution: Radboud University, Nijmegen, Netherlands
+      year: 2022 -
+
+    - title: Master of Computer Science (major in Artificial Intelligence)
+      institution: University Paris-Saclay, Orsay, France
+      year: 2019 - 2021
+
+    - title: Bachelor of Opto-electronic Information Science and Engineering
+      institution: University Paris-Saclay, Orsay, France
+      year: 2019 - 2021
+
 
 - title: Experience
   type: time_table
   contents:
-    - title: Professor of Theoretical Physics
-      institution: Institute for Advanced Study, Princeton University
-      year: 1933 - 1955
+    - title: Research engineer
+      institution: Huawei Technologies France
+      year: 2021
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Visiting Professor
-      institution: California Institute of Technology, Pasadena, California, US
-      year: 1933
+        - Tested and maintained the current Vitual Machine Schedule(VMS) System
+        - Designed a new VMS System based on Reinforcement Learning
+
+    - title: Research intern
+      institution: Group HUMANIA, INRIA/LISN
+      year: 2021
       description:
-        - Description 1.
-        - Description 2.
+        - Studied the trade-off between privacy and utility of some existing ML models
+        - Designed and implement an LTU attacker for Membership Inference Attack(MIA)
 
-    - title: Director
-      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-      year: 1917-1933
-
-    - title: Professor of Theoretical Physics
-      institution: Karl-Ferdinand University, Prague, Czechoslovakia
-      year: 1911 - 1917
+    - title: Assistant Data Scientist / Project Manager
+      institution: Huawei Technologies France
+      year: 2019
       description:
+        - Developed indexing robots and other tools to automate management works
 
-    - title: Associate Professor of Theoretical Physics
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1909 - 1911
-
-- title: Open Source Projects
-  type: time_table
+# nested_list
+- title: Personal
+  type: map
   contents:
-    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-      year: 2015-now
-      description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
-
-- title: Honors and Awards
-  type: time_table
-  contents:
-    - year: 1921
-      items: 
-        - Nobel Prize in Physics 
-        - Matteucci Medal
-    - year: 2029
-      items: 
-        - Max Planck Medal
-
-- title: Academic Interests
-  type: nested_list
-  contents:
-    - title: Topic 1.
-      items: 
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
-      items:
-        - Description 1.
-        - Description 2.
-
-- title: Other Interests
-  type: list
-  contents:
-    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
+    - name: Photography
+      value: see posts on my instagram.
+    - name: Rock Climbing
+      value: bouldering at v5/6c level, sport climbing at 6b level.
+    - name: Power Lifting
+      value: S 160/ B 120/ D 200/ T480

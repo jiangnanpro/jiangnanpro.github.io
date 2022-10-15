@@ -72,11 +72,32 @@
   year={1905}
 }
 
-@book{przibram1967letters,
-  bibtex_show={true},
-  title={Letters on wave mechanics},
-  author={Einstein, Albert and Schrödinger, Erwin and Planck, Max and Lorentz, Hendrik Antoon and Przibram, Karl},
-  year={1967},
-  publisher={Vision},
-  preview={wave-mechanics.gif}
+@article{a15070254,
+abbr={Algorithms},
+author = {Pedersen, Joseph and Muñoz-Gómez, Rafael and Huang, Jiangnan and Sun, Haozhe and Tu, Wei-Wei and Guyon, Isabelle},
+title = {LTU Attacker for Membership Inference},
+bibtex_show={true},
+journal = {Algorithms},
+volume = {15},
+year = {2022},
+number = {7},
+article-number = {254},
+url = {https://www.mdpi.com/1999-4893/15/7/254},
+issn = {1999-4893},
+abstract = {We address the problem of defending predictive models, such as machine learning classifiers (Defender models), against membership inference attacks, in both the black-box and white-box setting, when the trainer and the trained model are publicly released. The Defender aims at optimizing a dual objective: utility and privacy. Privacy is evaluated with the membership prediction error of a so-called &ldquo;Leave-Two-Unlabeled&rdquo; LTU Attacker, having access to all of the Defender and Reserved data, except for the membership label of one sample from each, giving the strongest possible attack scenario. We prove that, under certain conditions, even a &ldquo;na&iuml;ve&rdquo; LTU Attacker can achieve lower bounds on privacy loss with simple attack strategies, leading to concrete necessary conditions to protect privacy, including: preventing over-fitting and adding some amount of randomness. This attack is straightforward to implement against any model trainer, and we demonstrate its performance against MemGaurd. However, we also show that such a na&iuml;ve LTU Attacker can fail to attack the privacy of models known to be vulnerable in the literature, demonstrating that knowledge must be complemented with strong attack strategies to turn the LTU Attacker into a powerful means of evaluating privacy. The LTU Attacker can incorporate any existing attack strategy to compute individual privacy scores for each training sample. Our experiments on the QMNIST, CIFAR-10, and Location-30 datasets validate our theoretical results and confirm the roles of over-fitting prevention and randomness in the algorithms to protect against privacy attacks.},
+doi = {10.3390/a15070254}
+}
+
+@InProceedings{10.1007/978-3-030-85672-4_2,
+abbr={OLA2021},
+author={Huang, Jiangnan and Chen, Zixi and Dupin, Nicolas},
+title={Comparing Local Search Initialization for K-Means and K-Medoids Clustering in a Planar Pareto Front, a Computational Study},
+booktitle="Optimization and Learning",
+bibtex_show={true},
+year={2021},
+publisher="Springer International Publishing",
+address="Cham",
+pages="14--28",
+abstract="Having N points in a planar Pareto Front (2D PF), k-means and k-medoids are solvable in $O(N^3)$ time by dynamic programming algorithms. Standard local search approaches, PAM and Lloyd's heuristics, are investigated in the 2D PF case to solve faster large instances. Specific initialization strategies related to 2D PF cases are implemented with the generic ones (Forgy's, Hartigans, k-means++). Applying PAM and Lloyd's local search iterations, the quality of local minimums are compared with optimal values. Numerical results are computed using generated instances, which were made public. This study highlights that local minimums of a poor quality exist for 2D PF cases. A parallel or multi-start heuristic using four initialization strategies improves the accuracy to avoid poor local optimums. Perspectives are still open to improve local search heuristics for the specific 2D PF cases.",
+isbn="978-3-030-85672-4"
 }
