@@ -9,7 +9,7 @@ profile:
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   address: >
-    <p>jiangnan.huang [at] ru.nl</p>
+    <p>jiangnan.huang[at]ru.nl</p>
     <p>Radboud University</p>
     <p>Nijmegen, Netherlands</p>
 
