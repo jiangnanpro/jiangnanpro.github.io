@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Ph.D. candidate @ Radboud University
+subtitle: Ph.D. student @ Radboud University
 
 profile:
   align: right
@@ -18,6 +18,6 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false  # includes social icons at the bottom of the page
 ---
 
-Hey, I'm Jiangnan HUANG(黄江南), currently a Ph.D. candidate at Radboud University. My research interests include Machine Learning, Deep Learning, Nature Language Processing, Software Engineering.
+Hey, I'm Jiangnan HUANG(黄江南), currently a Ph.D. student at [Institute of Computing and Information Sciences](https://www.ru.nl/icis/)([Radboud University](https://www.ru.nl/)), Nijmegen, Netherlands, under the supervision of [Dr. Bin Lin](https://binlin.info/index.html) and [Prof. dr. Frits Vaandrager](http://www.cs.ru.nl/F.Vaandrager/). My research interests include Machine Learning, Deep Learning, Nature Language Processing, Software Engineering.
 
-I studied **B.S.** Opto-electronic Information Science and Engineering at Huazhong University of Science and Technology(HUST), and **M.S.** Artificial Intelligence at Université Paris-Saclay.
+I obtained my **M.Sc.** degree in Computer Science - Artificial Intelligence at [Université Paris-Saclay](https://www.universite-paris-saclay.fr/), Orsay, France in 2021. Before that, I graduated with a **B.S.** degree in Opto-electronic Information Science and Engineering at [Huazhong University of Science and Technology(HUST)](http://english.hust.edu.cn/), Wuhan, China in 2018.
