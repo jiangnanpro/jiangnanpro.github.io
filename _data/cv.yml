@@ -50,7 +50,7 @@
   type: map
   contents:
     - name: Photography
-      value: see posts on my instagram.
+      value: see posts on <a href="https://www.instagram.com/jiangnan_jonah/">my instagram</a>.
     - name: Rock Climbing
       value: bouldering at v5/6c level, sport climbing at 6b level.
     - name: Power Lifting
