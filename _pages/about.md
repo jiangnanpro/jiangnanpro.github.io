@@ -22,4 +22,4 @@ Hey, I'm Jiangnan HUANG(黄 江南), currently a **Ph.D.** student at [Institute
 
 I obtained my **M.Sc.** degree in Computer Science - Artificial Intelligence at [Université Paris-Saclay](https://www.universite-paris-saclay.fr/), Orsay, France in 2021, under the guidance of [Prof. dr. Isabelle Guyon](https://guyon.chalearn.org/). Before that, I graduated with a **B.S.** degree in Opto-electronic Information Science and Engineering at [Huazhong University of Science and Technology(HUST)](http://english.hust.edu.cn/), Wuhan, China in 2018.
 
-Also see: [twitter](https://twitter.com/jiangnan_h),[dblp](https://dblp.org/pid/198/9841.html),[Google Scholar](https://scholar.google.com/citations?user=GUY1R9QAAAAJ&hl=en)
+*Also see: [twitter](https://twitter.com/jiangnan_h),[dblp](https://dblp.org/pid/198/9841.html),[Google Scholar](https://scholar.google.com/citations?user=GUY1R9QAAAAJ&hl=en)*
