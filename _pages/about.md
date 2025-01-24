@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: Ph.D. student @ Radboud University
+subtitle: Ph.D. Candidate @ Radboud University
 
 profile:
   align: right
