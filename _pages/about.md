@@ -18,7 +18,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Hey, I'm Jiangnan HUANG(黄 江南), currently a 2nd year **Ph.D.** student at [Institute of Computing and Information Sciences](https://www.ru.nl/icis/)([Radboud University](https://www.ru.nl/)), Nijmegen, Netherlands, under the supervision of [Dr. Bin Lin](https://binlin.info/index.html) and [Prof. dr. Frits Vaandrager](http://www.cs.ru.nl/F.Vaandrager/). My research interests include Machine Learning, Deep Learning, Nature Language Processing, AI for Software Engineering.
+Hey, I'm Jiangnan HUANG(黄 江南), currently a 3rd year **Ph.D.** student at [Institute of Computing and Information Sciences](https://www.ru.nl/icis/)([Radboud University](https://www.ru.nl/)), Nijmegen, Netherlands, under the supervision of [Dr. Bin Lin](https://binlin.info/index.html) and [Prof. dr. Frits Vaandrager](http://www.cs.ru.nl/F.Vaandrager/). My research interests include Data mining, Deep Learning, Nature Language Processing, AI for Software Engineering.
 
 I obtained my **M.Sc.** degree in Computer Science - Artificial Intelligence at [Université Paris-Saclay](https://www.universite-paris-saclay.fr/), Orsay, France in 2021, under the guidance of [Prof. dr. Isabelle Guyon](https://guyon.chalearn.org/). Before that, I graduated with a **B.S.** degree in Opto-electronic Information Science and Engineering at [Huazhong University of Science and Technology(HUST)](http://english.hust.edu.cn/), Wuhan, China in 2018.
 
