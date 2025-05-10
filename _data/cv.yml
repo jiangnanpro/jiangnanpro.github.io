@@ -9,7 +9,7 @@
 - title: Education
   type: time_table
   contents:
-    - title: Ph.D. student
+    - title: Ph.D. Candidate
       institution: iCIS, Radboud University, Nijmegen, Netherlands
       year: 2022 -
 
@@ -25,14 +25,14 @@
 - title: Experience
   type: time_table
   contents:
-    - title: Research engineer
+    - title: Research Engineer
       institution: Huawei Technologies France
       year: 2021
       description:
         - Tested and maintained the current Vitual Machine Schedule(VMS) System
         - Designed a new VMS System based on Reinforcement Learning
 
-    - title: Research intern
+    - title: Research Intern
       institution: Group HUMANIA, INRIA/LISN
       year: 2021
       description:
