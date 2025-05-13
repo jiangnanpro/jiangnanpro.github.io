@@ -2,7 +2,7 @@
 layout: page
 permalink: /teaching/
 title: teaching
-description: Materials for courses you taught. Replace this text with your description.
+description: 
 nav: true
 nav_order: 5
 ---
@@ -10,5 +10,7 @@ nav_order: 5
 Teaching Assistance:
 
 Software Verification
+
 Software Engineering 
+
 Requirement Engineering

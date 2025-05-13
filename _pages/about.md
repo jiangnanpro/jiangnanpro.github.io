@@ -14,8 +14,8 @@ profile:
     <p>Nijmegen, Netherlands</p>
 
 news: false  # includes a list of news items
-selected_papers: false # includes a list of papers marked as "selected={true}"
-social: true  # includes social icons at the bottom of the page
+selected_papers: true # includes a list of papers marked as "selected={true}"
+social: false  # includes social icons at the bottom of the page
 ---
 
 Hey, I'm Jiangnan HUANG(黄 江南), currently a 3rd year **Ph.D.** student at [Institute of Computing and Information Sciences](https://www.ru.nl/icis/)([Radboud University](https://www.ru.nl/)), Nijmegen, Netherlands, under the supervision of [Dr. Bin Lin](https://binlin.info/index.html) and [Prof. dr. Frits Vaandrager](http://www.cs.ru.nl/F.Vaandrager/). Prior to this, I was a full-time Research Engineer in [Huawei Technologies France](https://www.huawei.com/fr/). My research interests lie primarily in AI for Software Engineering (AI4SE), with a focus on DevOps, especially on the GitHub Actions CI/CD platform. Recently, I have been exploring the use of LLMs to enhance automation in GitHub Actions, aiming to improve the efficiency and reliability of software development processes.
