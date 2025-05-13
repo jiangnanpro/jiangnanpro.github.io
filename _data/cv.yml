@@ -4,7 +4,7 @@
     - name: Full Name
       value: Jiangnan HUANG
     - name: Languages
-      value: English, French, Chinese
+      value: English, French, Chinese, Japanese
 
 - title: Education
   type: time_table
@@ -12,6 +12,10 @@
     - title: Ph.D. Candidate
       institution: iCIS, Radboud University, Nijmegen, Netherlands
       year: 2022 -
+
+    - title: Visiting Researcher
+      institution: Nara Institute of Science and Technology (NAIST), Nara, Japan
+      year: 2024 
 
     - title: Master of Computer Science (major in Artificial Intelligence)
       institution: University Paris-Saclay, Orsay, France
@@ -50,8 +54,11 @@
   type: map
   contents:
     - name: Photography
-      value: see posts on <a href="https://www.instagram.com/jiangnan_jonah/">my instagram</a>.
-    - name: Rock Climbing
-      value: mostly bouldering, at v5/6c level, find me at <a href="https://gripnijmegen.nl/boulderhal/">GRIP bouderhal Nijmegen</a>.
+      value: see posts on <a href="https://www.instagram.com/jiangnan_jonah/">my instagram</a>
+    - name: Snowboarding
+      value: fully committed free carver :)
+    - name: Bouldering
+      value: v5/6c level, find me at <a href="https://gripnijmegen.nl/boulderhal/">GRIP bouderhal Nijmegen</a>
     - name: Power Lifting
-      value: personal records S 160/ B 120/ D 200/ T480 (kg. temporary quit).
+      value: PR S 160/ B 120/ D 200/ T480 (kg)
+
