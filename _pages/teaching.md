@@ -2,12 +2,10 @@
 layout: page
 permalink: /teaching/
 title: teaching
-description: 
+description: I've been TAing in the following courses:
 nav: true
 nav_order: 5
 ---
-
-Teaching Assistance:
 
 Software Verification
 
