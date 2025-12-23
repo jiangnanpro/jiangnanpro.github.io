@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Software Engineering 23/24
-img: assets/img/7.jpg
+img: assets/img/software_engineering.png
 importance: 3
 category: teaching
 ---
