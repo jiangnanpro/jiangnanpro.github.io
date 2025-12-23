@@ -13,9 +13,8 @@
       institution: iCIS, Radboud University, Nijmegen, Netherlands
       year: 2022 -
 
-    - title: Visiting Researcher
-      institution: Nara Institute of Science and Technology (NAIST), Nara, Japan
-      year: 2024 
+    - title: The 17th International Summer School on Software Engineering (ISSSE 2024)
+      institution: University of Salerno, Salerno, Italy
 
     - title: Master of Computer Science (major in Artificial Intelligence)
       institution: University Paris-Saclay, Orsay, France
@@ -29,25 +28,40 @@
 - title: Experience
   type: time_table
   contents:
+    - title: Doctoral Researcher
+      institution: iCIS, Radboud University, Nijmegen, Netherlands
+      year: 2022 -
+      description:
+        - Studying automation, reliability, and security of CI/CD workﬂows
+        - Developing Learning-based frameworks for workﬂow completion and test generation
+        - Collaborating with international research partners across Europe and Asia
+
+    - title: Visiting Researcher
+      institution: Hangzhou Dianzi University (HDU), Hangzhou, China
+      year: 2025 
+      description:
+        - Advanced automated support for workﬂow design and maintenance
+        - Developed LLM-based methods for human-like test generation
+
+    - title: Visiting Researcher
+      institution: Nara Institute of Science and Technology (NAIST), Nara, Japan
+      year: 2024 
+      description:
+        - Conducted empirical studies on CI/CD workﬂow reliability
+        - Designed FLOWSTEP, a step-type–aware LLM-based workﬂow completion model
+
     - title: Research Engineer
       institution: Huawei Technologies France
       year: 2021
       description:
-        - Tested and maintained the current Vitual Machine Schedule(VMS) System
-        - Designed a new VMS System based on Reinforcement Learning
+        - Designed a reinforcement-learning–based system for virtual machine scheduling
 
     - title: Research Intern
       institution: Group HUMANIA, INRIA/LISN
       year: 2021
       description:
-        - Studied the trade-off between privacy and utility of some existing ML models
-        - Designed and implement an LTU attacker for Membership Inference Attack(MIA)
-
-    - title: Assistant Data Scientist / Project Manager
-      institution: Huawei Technologies France
-      year: 2019
-      description:
-        - Developed indexing robots and other tools to automate management works
+        - Analyzed privacy–utility trade-oﬀs in ML models
+        - Designed and implemented an LTU attacker for membership inference attacks
 
 # nested_list
 - title: Personal

@@ -2,13 +2,15 @@
 layout: page
 permalink: /teaching/
 title: teaching
-description: I've been TAing in the following courses
+description: 
 nav: true
 nav_order: 5
 ---
 
-Software Verification
+Software Verification 2024,2025,2026
 
-Software Engineering 
+Requirements Engineering and Design 2025
 
-Requirement Engineering
+Software Engineering 2023
+
+
