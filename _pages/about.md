@@ -1,7 +1,7 @@
 ---
 layout: about
 title: About
-permalink: /about/
+permalink: /
 subtitle: Ph.D. Candidate @ Radboud University
 
 profile:
