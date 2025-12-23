@@ -10,7 +10,7 @@ horizontal: false
 ---
 
 <!-- pages/services.md -->
-<div class="services">
+<div class="projects">
 {%- if site.enable_service_categories and page.display_categories %}
   <!-- Display categorized services -->
   {%- for category in page.display_categories %}
@@ -22,14 +22,16 @@ horizontal: false
   <div class="container">
     <div class="row row-cols-2">
     {%- for service in sorted_services -%}
-      {% include projects_horizontal.html project=service %}
+      {%- assign project = service -%}
+      {% include projects_horizontal.html %}
     {%- endfor %}
     </div>
   </div>
   {%- else -%}
   <div class="grid">
     {%- for service in sorted_services -%}
-      {% include projects.html project=service %}
+      {%- assign project = service -%}
+      {% include projects.html %}
     {%- endfor %}
   </div>
   {%- endif -%}
@@ -43,14 +45,16 @@ horizontal: false
   <div class="container">
     <div class="row row-cols-2">
     {%- for service in sorted_services -%}
-      {% include projects_horizontal.html project=service %}
+      {%- assign project = service -%}
+      {% include projects_horizontal.html %}
     {%- endfor %}
     </div>
   </div>
   {%- else -%}
   <div class="grid">
     {%- for service in sorted_services -%}
-      {% include projects.html project=service %}
+      {%- assign project = service -%}
+      {% include projects.html %}
     {%- endfor %}
   </div>
   {%- endif -%}
