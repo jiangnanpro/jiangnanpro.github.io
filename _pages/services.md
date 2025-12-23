@@ -22,14 +22,14 @@ horizontal: false
   <div class="container">
     <div class="row row-cols-2">
     {%- for service in sorted_services -%}
-      {% include projects_horizontal.html %}
+      {% include projects_horizontal.html project=service %}
     {%- endfor %}
     </div>
   </div>
   {%- else -%}
   <div class="grid">
     {%- for service in sorted_services -%}
-      {% include projects.html %}
+      {% include projects.html project=service %}
     {%- endfor %}
   </div>
   {%- endif -%}
@@ -43,14 +43,14 @@ horizontal: false
   <div class="container">
     <div class="row row-cols-2">
     {%- for service in sorted_services -%}
-      {% include projects_horizontal.html %}
+      {% include projects_horizontal.html project=service %}
     {%- endfor %}
     </div>
   </div>
   {%- else -%}
   <div class="grid">
     {%- for service in sorted_services -%}
-      {% include projects.html %}
+      {% include projects.html project=service %}
     {%- endfor %}
   </div>
   {%- endif -%}
