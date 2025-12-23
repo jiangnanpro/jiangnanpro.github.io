@@ -13,7 +13,7 @@ horizontal: false
 <div class="services">
 {%- if site.enable_service_categories and page.display_categories %}
   <!-- Display categorized services -->
-  {%- for category in page.display_services %}
+  {%- for category in page.display_categories %}
   <h2 class="category">{{ category }}</h2>
   {%- assign categorized_services = site.services | where: "category", category -%}
   {%- assign sorted_services = categorized_services | sort: "importance" %}
