@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Requirements Engineering and Design 25
-img: assets/img/requirement_engineering.jpg
+img: assets/img/requirement.jpg
 importance: 2
 category: teaching
 ---

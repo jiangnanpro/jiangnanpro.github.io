@@ -1,7 +1,7 @@
 ---
 layout: page
 title:  Software Verification 24/25/26
-img: assets/img/software_verification.jpg
+img: assets/img/verification.jpg
 importance: 1
 category: teaching
 ---
