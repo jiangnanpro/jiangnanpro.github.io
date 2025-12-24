@@ -423,8 +423,8 @@ footer.sticky-bottom {
     }
   }
 
-  .card-title {
-    font-size: 0.8rem;
+  .page .projects .card-title {
+    font-size: 1rem;
     line-height: 1.3;
   }
 
@@ -449,8 +449,8 @@ footer.sticky-bottom {
     margin-bottom: 10px;
   }
 
-  h2.category {
-    font-size: 1rem;
+  .page .projects h2.category {
+    font-size: 1.25rem;
     color: var(--global-divider-color);
     border-bottom: 1px solid var(--global-divider-color);
     padding-top: 0.5rem;
