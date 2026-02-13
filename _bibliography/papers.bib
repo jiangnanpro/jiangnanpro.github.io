@@ -1,75 +1,48 @@
 ---
 ---
 
-@string{aps = {American Physical Society,}}
-
-@book{einstein1956investigations,
-  bibtex_show={true},
-  title={Investigations on the Theory of the Brownian Movement},
-  author={Einstein, Albert},
-  year={1956},
-  publisher={Courier Corporation,},
-  preview={brownian-motion.gif}
+@article{10.1145/3795771,
+abbr = {TOSEM},
+author = {Huang, Jiangnan and Lin, Bin},
+title = {On the Reruns of GitHub Actions Workflows},
+year = {2026},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+issn = {1049-331X},
+url = {https://doi.org/10.1145/3795771},
+doi = {10.1145/3795771},
+abstract = {GitHub Actions, a built-in CI/CD solution of GitHub, is increasingly popular among developers for automating software development workflows. It has been observed that when automated workflow execution fails, developers sometimes only rerun the workflow or failed job without any modifications to the repository. The widespread use of these reruns has consumed considerable computing resources and raised concerns regarding the reliability and consistency of these workflows. Understanding how developers rerun GitHub Actions workflows and the rationale behind the rerun can provide valuable insights to further improve the reliability and efficiency of the software development process.In this work, we conducted an empirical study on 3,320 open-source Java repositories to understand how developers rerun GitHub Actions workflows and quantify both wasted time and computing resources. We further studied the cases where workflow reruns lead to successful outcomes and manually analyzed the reasons behind the workflow execution flakiness. Based on our findings, we tested four machine learning based models to predict the workflow execution outcome, aiming to reduce the potential resource waste caused by workflow reruns. Our study presents how developers deal with GitHub Actions execution failures, pinpoints root causes of workflow execution flakiness, and offers actionable insights to improve CI/CD workflow reliability and efficiency.},
+note = {Just Accepted},
+journal = {ACM Trans. Softw. Eng. Methodol.},
+month = feb,
+keywords = {GitHub Actions, CI/CD, Software Repositories},
+pdf = {3795771.pdf}
 }
 
-@article{einstein1950meaning,
-  abbr={AJP},
-  bibtex_show={true},
-  title={The meaning of relativity},
-  author={Einstein, Albert and Taub, AH},
-  journal={American Journal of Physics,},
-  volume={18},
-  number={6},
-  pages={403--404},
-  year={1950},
-  publisher={American Association of Physics Teachers,}
+@inproceedings{Huang2025a,
+ abbr = {ICPC2025},
+ author = {Huang, Jiangnan and Lin, Bin},
+ title = {Revisiting Security Practices for GitHub Actions Workflows},
+ booktitle = {Proceedings of the 33rd International Conference on Program Comprehension},
+ series = {ICPC '25},
+ year = {2025},
+ location = {Ottawa, Canada},
+ abstract = {GitHub Actions, a built-in CI/CD service of GitHub released in 2019, has become one of the most widely adopted tools among developers for automating software development workflows. This popularity, however, brings security challenges, as vulnerable workflows can expose repositories and the software supply chains to significant risks. Existing studies have highlighted several types of potential security issues. Over the past few years, GitHub has been constantly promoting better security practices and developers have gained experience in using GitHub Actions. Investigating how developers’ practices for handling GitHub Actions security have changed over time could offer valuable insights for further strengthening the security of these workflows. In this study, we analyzed non-optimal security practices in 18,938 workflows from 5,246 active GitHub repositories. By comparing the prevalence of issues spotted in two different years (2022 and 2024), we find that some undesired practices still widely exist in repositories. However, some progress has been observed, such as the significant reduce of permission misconfigurations.},
+ pages = {accepted},
+ numpages = {5},
+ pdf = {Huang2025a.pdf},
+ code = {https://github.com/jiangnanpro/Security-of-GHA-workflow}
 }
 
-@article{PhysRev.47.777,
-  abbr={PhysRev},
-  title={Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?},
-  author={Einstein, A. and Podolsky, B. and Rosen, N.},
-  abstract={In a complete theory there is an element corresponding to each element of reality. A sufficient condition for the reality of a physical quantity is the possibility of predicting it with certainty, without disturbing the system. In quantum mechanics in the case of two physical quantities described by non-commuting operators, the knowledge of one precludes the knowledge of the other. Then either (1) the description of reality given by the wave function in quantum mechanics is not complete or (2) these two quantities cannot have simultaneous reality. Consideration of the problem of making predictions concerning a system on the basis of measurements made on another system that had previously interacted with it leads to the result that if (1) is false then (2) is also false. One is thus led to conclude that the description of reality as given by a wave function is not complete.},
-  journal={Phys. Rev.,},
-  volume={47},
-  issue={10},
-  pages={777--780},
-  numpages={0},
-  year={1935},
-  month={May},
-  publisher=aps,
-  doi={10.1103/PhysRev.47.777},
-  url={http://link.aps.org/doi/10.1103/PhysRev.47.777},
-  html={https://journals.aps.org/pr/abstract/10.1103/PhysRev.47.777},
-  pdf={example_pdf.pdf},
-  selected={true}
-}
-
-@article{einstein1905molekularkinetischen,
-  title={{\"U}ber die von der molekularkinetischen Theorie der W{\"a}rme geforderte Bewegung von in ruhenden Fl{\"u}ssigkeiten suspendierten Teilchen},
-  author={Einstein, A.},
-  journal={Annalen der physik,},
-  volume={322},
-  number={8},
-  pages={549--560},
-  year={1905},
-  publisher={Wiley Online Library}
-}
-
-@article{einstein1905movement,
-  abbr={Ann. Phys.},
-  title={Un the movement of small particles suspended in statiunary liquids required by the molecular-kinetic theory 0f heat},
-  author={Einstein, A.},
-  journal={Ann. Phys.,},
-  volume={17},
-  pages={549--560},
-  year={1905}
-}
-
-@article{einstein1905electrodynamics,
-  title={On the electrodynamics of moving bodies},
-  author={Einstein, A.},
-  year={1905}
+@article{a89159487haha,
+abbr = {SCAM2023},
+journal = {Source Code Analysis and Manipulation (Best paper award)},
+year = {2023},
+author = {Huang, Jiangnan and Lin, Bin},
+title = {CIGAR: Contrastive Learning for GitHub Action Recommendation},
+abstract = {GitHub Actions was introduced in 2019 as an integrated solution for CI/CD to automate software development workflow. Since then, it has gained tremendous popularity among developers. In a GitHub Actions workflow, actions refer to custom applications for performing complex but frequently repeated tasks. Actions can be typically found in GitHub Marketplace or public GitHub repositories. Prior studies have already disclosed that developers often reuse actions to reduce double work and improve productivity. However, it is not trivial for developers, especially novices, to figure out which action to reuse due to the large number of actions available and the limited search functionality GitHub Marketplace provides. To address this issue, we propose CIGAR (ContrastIve learning for GitHub Action Recommendation). Given the textual description of a task developers want to execute, CIGAR will recommend the most relevant actions. CIGAR exploits a pre-trained RoBERTa model to convert sequences of words into high-dimensional vector representations, and is fine tuned through a contrastive learning objective. The performance of CIGAR was evaluated on a novel dataset curated based on prior research, and the results demonstrate that CIGAR can reliably recommend actions needed by developers and significantly outperforms the GitHub Marketplace search engine. Our study indicates the promise of employing contrastive learning for GitHub action recommendation. The promising performance achieved can potentially drive a wider adoption of GitHub Actions and facilitate the automation of software development workflows.},
+pdf = {2023206389.pdf},
+code = {https://github.com/jiangnanpro/CIGAR}
 }
 
 @article{a15070254,
@@ -85,7 +58,8 @@ article-number = {254},
 url = {https://www.mdpi.com/1999-4893/15/7/254},
 issn = {1999-4893},
 abstract = {We address the problem of defending predictive models, such as machine learning classifiers (Defender models), against membership inference attacks, in both the black-box and white-box setting, when the trainer and the trained model are publicly released. The Defender aims at optimizing a dual objective: utility and privacy. Privacy is evaluated with the membership prediction error of a so-called &ldquo;Leave-Two-Unlabeled&rdquo; LTU Attacker, having access to all of the Defender and Reserved data, except for the membership label of one sample from each, giving the strongest possible attack scenario. We prove that, under certain conditions, even a &ldquo;na&iuml;ve&rdquo; LTU Attacker can achieve lower bounds on privacy loss with simple attack strategies, leading to concrete necessary conditions to protect privacy, including: preventing over-fitting and adding some amount of randomness. This attack is straightforward to implement against any model trainer, and we demonstrate its performance against MemGaurd. However, we also show that such a na&iuml;ve LTU Attacker can fail to attack the privacy of models known to be vulnerable in the literature, demonstrating that knowledge must be complemented with strong attack strategies to turn the LTU Attacker into a powerful means of evaluating privacy. The LTU Attacker can incorporate any existing attack strategy to compute individual privacy scores for each training sample. Our experiments on the QMNIST, CIFAR-10, and Location-30 datasets validate our theoretical results and confirm the roles of over-fitting prevention and randomness in the algorithms to protect against privacy attacks.},
-doi = {10.3390/a15070254}
+doi = {10.3390/a15070254},
+pdf = {2202.02278.pdf}
 }
 
 @InProceedings{10.1007/978-3-030-85672-4_2,
@@ -100,4 +74,22 @@ address="Cham",
 pages="14--28",
 abstract="Having N points in a planar Pareto Front (2D PF), k-means and k-medoids are solvable in $O(N^3)$ time by dynamic programming algorithms. Standard local search approaches, PAM and Lloyd's heuristics, are investigated in the 2D PF case to solve faster large instances. Specific initialization strategies related to 2D PF cases are implemented with the generic ones (Forgy's, Hartigans, k-means++). Applying PAM and Lloyd's local search iterations, the quality of local minimums are compared with optimal values. Numerical results are computed using generated instances, which were made public. This study highlights that local minimums of a poor quality exist for 2D PF cases. A parallel or multi-start heuristic using four initialization strategies improves the accuracy to avoid poor local optimums. Perspectives are still open to improve local search heuristics for the specific 2D PF cases.",
 isbn="978-3-030-85672-4"
+}
+
+@article{10.1145/3749371,
+abbr = {TOSEM},
+author = {Zheng, Lianyu and Li, Shuang and Huang, Xi and Huang, Jiangnan and Lin, Bin and Chen, Jinfu and Xuan, Jifeng},
+title = {Why Do GitHub Actions Workflows Fail? An Empirical Study},
+year = {2025},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+issn = {1049-331X},
+url = {https://doi.org/10.1145/3749371},
+doi = {10.1145/3749371},
+abstract = {GitHub Actions (GHA), a built-in continuous integration and continuous delivery (CI/CD) service of GitHub, has been widely adopted by developers, streamlining the automation of software development workflows. Despite its popularity, failures frequently occur during GHA workflow executions. Fixing these failures often requires significant human effort, and unsuccessful workflow executions waste computing resources. Understanding the reasons behind workflow failures could provide valuable insights for troubleshooting the existing issues of CI/CD and further improving the development process.In this paper, we present an empirical study to reveal the reasons behind GHA workflow failures. By manually analyzing 375 failed workflow executions across 260 open-source Java projects, we built a comprehensive taxonomy categorizing the common failure types. The taxonomy was further validated by surveying 151 developers. This study is the first empirical work to analyze GHA workflow failures, bringing valuable knowledge to the field of continuous integration in software engineering. Moreover, our taxonomy and survey results not only underscore the critical need for better tools and practices to mitigate these failures but also indicate the directions to enhance the efficiency and reliability of CI/CD pipelines.},
+note = {Just Accepted},
+journal = {ACM Trans. Softw. Eng. Methodol.},
+month = jul,
+keywords = {GitHub Workflow, Continuous Integration},
+pdf = {3749371.pdf}
 }
