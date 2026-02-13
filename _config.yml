@@ -140,9 +140,9 @@ collections:
       layout: post
     output: true
     permalink: /news/:path/
-  projects:
-    output: true
-    permalink: /projects/:path/
+#  projects:
+#    output: true
+#    permalink: /projects/:path/
   services:
     output: true
     permalink: /services/:path/
