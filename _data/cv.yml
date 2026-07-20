@@ -11,7 +11,7 @@
   contents:
     - title: Ph.D. Candidate
       institution: iCIS, Radboud University, Nijmegen, Netherlands
-      year: 2022 - 2026 (Expected)
+      year: 2022 - 
 
     - title: Master of Computer Science (Artificial Intelligence / Machine Learning)
       institution: University Paris-Saclay, Orsay, France
@@ -27,7 +27,7 @@
   contents:
     - title: Doctoral Researcher
       institution: iCIS, Radboud University, Nijmegen, Netherlands
-      year: 2022 - 2026 (Expected)
+      year: 2022 - 
       description:
         - Developed FLOWSTEP, a contrastive learning and LLM-based framework that improves GitHub Actions workflow completion accuracy by 33.6\% over the state-of-the-art baseline.
         - Developed CIGAR, a contrastive learning-based recommender system achieving 95.5\% top-5 accuracy in GitHub Action recommendation, outperforming GitHub Marketplace search by over 34×.
