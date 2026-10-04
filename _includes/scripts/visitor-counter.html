@@ -1,12 +1,42 @@
-<!-- Load only on the configured public hostname so previews do not record visits. -->
+{% if site.goatcounter_code and site.goatcounter_code != empty %}
 <script>
   (function () {
     var publicUrl = {{ site.url | jsonify }};
-    if (!publicUrl || window.location.hostname !== new URL(publicUrl).hostname) return;
+    var code = {{ site.goatcounter_code | jsonify }};
+    var count = document.getElementById('visitor-count');
+    if (!publicUrl || window.location.hostname !== new URL(publicUrl).hostname) {
+      if (count) count.textContent = 'Available on the live site';
+      return;
+    }
+    if (!/^[a-z0-9-]+$/i.test(code)) {
+      if (count) count.textContent = 'Unavailable';
+      return;
+    }
 
+    var origin = 'https://' + code + '.goatcounter.com';
     var script = document.createElement('script');
     script.async = true;
-    script.src = '//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js';
+    script.setAttribute('data-goatcounter', origin + '/count');
+    script.src = 'https://gc.zgo.at/count.js';
     document.head.appendChild(script);
+
+    // Reading a public total does not record another visit. Tracking is above.
+    if (!count) return;
+    var request = new XMLHttpRequest();
+    request.open('GET', origin + '/counter/TOTAL.json');
+    request.timeout = 8000;
+    function unavailable() { count.textContent = 'Unavailable'; }
+    request.onload = function () {
+      if (request.status !== 200) return unavailable();
+      try {
+        var data = JSON.parse(request.responseText);
+        if (typeof data.count !== 'string' || !/\d/.test(data.count)) return unavailable();
+        count.textContent = data.count;
+      } catch (error) { unavailable(); }
+    };
+    request.onerror = unavailable;
+    request.ontimeout = unavailable;
+    request.send();
   })();
 </script>
+{% endif %}
