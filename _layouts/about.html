@@ -61,6 +61,11 @@ layout: default
 
           </div>
           {%- endif %}
+          {% if site.enable_visitor_counter and page.permalink == '/' %}
+          <p class="mt-4 text-muted" id="busuanzi_container_site_uv" style="display: none;" aria-live="polite">
+            Visitors: <span id="busuanzi_value_site_uv"></span>
+          </p>
+          {% endif %}
         </article>
 
 </div>

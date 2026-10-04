@@ -1,0 +1,12 @@
+<!-- Load only on the configured public hostname so previews do not record visits. -->
+<script>
+  (function () {
+    var publicUrl = {{ site.url | jsonify }};
+    if (!publicUrl || window.location.hostname !== new URL(publicUrl).hostname) return;
+
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+    document.head.appendChild(script);
+  })();
+</script>
