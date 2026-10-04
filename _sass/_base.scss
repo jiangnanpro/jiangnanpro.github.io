@@ -3,6 +3,7 @@
  ******************************************************************************/
 
 // Typography
+@use "variables" as v;
 
 p, h1, h2, h3, h4, h5, h6, em, div, li, span, strong {
   color: var(--global-text-color);
@@ -389,11 +390,11 @@ footer.sticky-bottom {
     .page-link {
       color: var(--global-text-color);
       &:hover {
-        color: $black-color;
+        color: v.$black-color;
       }
     }
     &.active .page-link {
-      color: $white-color;
+      color: v.$white-color;
       background-color: var(--global-theme-color);
       &:hover {
         background-color: var(--global-theme-color);
