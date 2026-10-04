@@ -23,6 +23,11 @@
         {%- if site.last_updated -%}
         Last updated: {{ "now" | date: '%B %d, %Y' }}.
         {%- endif %}
+        {% if site.enable_visitor_counter and site.goatcounter_code != empty and site.goatcounter_code %}
+          <span class="mt-4 text-muted" id="visitor-counter" aria-live="polite">
+            Visitors: <span id="visitor-count">Loading…</span>
+          </span>
+          {% endif %}
       </div>
     </footer>
     {%- endif %}
