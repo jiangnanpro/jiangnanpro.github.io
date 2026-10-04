@@ -35,6 +35,125 @@ body.sticky-bottom-footer {
   }
 }
 
+/******************************************************************************
+ * Photo diaries
+ ******************************************************************************/
+
+.wide-page .container {
+  max-width: 1180px;
+}
+
+.photo-diary-list,
+.photo-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.photo-diary-list {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 360px));
+  justify-content: start;
+}
+
+.photo-diary-card,
+.photo-item {
+  margin: 0;
+}
+
+.photo-diary-card a {
+  display: block;
+  color: var(--global-text-color);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.photo-diary-cover,
+.photo-item img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 0.35rem;
+}
+
+.photo-diary-cover {
+  aspect-ratio: 16 / 10;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.photo-diary-card a:hover .photo-diary-cover,
+.photo-diary-card a:focus-visible .photo-diary-cover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.6rem 1.4rem rgba(0, 0, 0, 0.16);
+}
+
+.photo-diary-card figcaption {
+  padding-top: 0.8rem;
+}
+
+.photo-diary-card h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.photo-diary-meta,
+.photo-diary-description,
+.photo-caption {
+  color: var(--global-text-color-light);
+}
+
+.photo-diary-meta {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+
+.photo-diary-description {
+  margin-top: 0.45rem;
+  margin-bottom: 0;
+}
+
+.photo-diary-header {
+  max-width: 760px;
+  margin-bottom: 2rem;
+}
+
+.photo-diary-back {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.photo-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+
+.photo-item img {
+  aspect-ratio: 4 / 3;
+  cursor: zoom-in;
+}
+
+.photo-caption {
+  margin-top: 0.55rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 // TODO: redefine content layout.
 
 

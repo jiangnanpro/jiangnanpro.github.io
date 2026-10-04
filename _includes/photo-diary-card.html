@@ -1,0 +1,20 @@
+<figure class="photo-diary-card">
+  <a href="{{ diary.url | relative_url }}">
+    <img
+      class="photo-diary-cover"
+      src="{{ diary.cover | relative_url }}"
+      alt="{{ diary.cover_alt | default: diary.title }}"
+      loading="lazy"
+      decoding="async"
+    >
+    <figcaption>
+      <h2>{{ diary.title }}</h2>
+      <p class="photo-diary-meta">
+        {% if diary.location %}{{ diary.location }} · {% endif %}{{ diary.date | date: "%B %Y" }}
+      </p>
+      {% if diary.description %}
+        <p class="photo-diary-description">{{ diary.description }}</p>
+      {% endif %}
+    </figcaption>
+  </a>
+</figure>
