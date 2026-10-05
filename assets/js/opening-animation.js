@@ -56,9 +56,9 @@
       yPercent: 0,
       duration: 0.8,
       ease: 'expo.out',
-      stagger: 0.03,
+      stagger: 0.02,
     }, 0)
-    .addLabel('letters-complete', 0.52)
+    .addLabel('letters-complete', 1.04)
     .set('.opening-letter', { yPercent: 0 }, 'letters-complete')
     .to('.opening-gap', { width: '0.82em', duration: 1.1 }, 'letters-complete')
     .set('.opening-cube', { autoAlpha: 1 }, 'letters-complete')

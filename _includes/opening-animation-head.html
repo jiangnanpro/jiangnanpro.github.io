@@ -1,4 +1,10 @@
 <style>
+  html.transition .opening-overlay,
+  html.transition .opening-overlay *,
+  html.transition .opening-overlay *::before,
+  html.transition .opening-overlay *::after {
+    transition: none !important;
+  }
   .opening-overlay {
     display: none;
     position: fixed;
