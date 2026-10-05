@@ -6,11 +6,18 @@
   {%- if page.redirect -%}
     <meta http-equiv="refresh" content="3; url={{ site.baseurl }}/" />
   {%- endif -%}
+  {%- if page.url == '/' -%}
+    {% include opening-animation-head.html %}
+  {%- endif -%}
   {% include head.html %}
   </head>
 
   <!-- Body -->
   <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+
+    {%- if page.url == '/' -%}
+      {% include opening-animation.html %}
+    {%- endif -%}
 
     <!-- Header -->
     {%- include header.html %}
@@ -30,5 +37,9 @@
     {% include scripts/misc.html %}
     {% include scripts/mathjax.html %}
     {% include scripts/analytics.html %}
+    {%- if page.url == '/' -%}
+      <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" onerror="window.__openingGsapFailed = true"></script>
+      <script defer src="{{ '/assets/js/opening-animation.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+    {%- endif -%}
   </body>
 </html>

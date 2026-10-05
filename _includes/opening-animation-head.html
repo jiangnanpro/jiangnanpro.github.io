@@ -1,0 +1,96 @@
+<style>
+  .opening-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    overflow: hidden;
+    background: #1c1c1d;
+  }
+
+  html.opening-armed {
+    overflow: hidden;
+  }
+
+  html.opening-armed .opening-overlay {
+    display: block;
+  }
+
+  html.opening-armed body > header,
+  html.opening-armed body > .container,
+  html.opening-armed body > footer,
+  html.opening-armed .opening-loader {
+    visibility: hidden;
+  }
+
+  html.opening-armed.opening-ready .opening-loader {
+    visibility: visible;
+  }
+
+  .opening-loader {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .opening-name {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    color: #e8e8e8;
+    font-size: clamp(1.6rem, 6vw, 6.5rem);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .opening-name-part {
+    display: flex;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+
+  .opening-letter {
+    display: block;
+    color: inherit;
+    transform: translateY(110%);
+    will-change: transform;
+  }
+
+  .opening-gap {
+    position: relative;
+    flex: none;
+    width: 0.28em;
+    height: 0.82em;
+  }
+
+  .opening-cube {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    width: 0;
+    height: 0.82em;
+    background: #0076df;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .opening-overlay {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  try {
+    var localPreview = ['localhost', '127.0.0.1', '0.0.0.0', '::1'].includes(window.location.hostname);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && (localPreview || !sessionStorage.getItem('opening_seen'))) {
+      document.documentElement.classList.add('opening-armed');
+    }
+  } catch (error) {}
+</script>
