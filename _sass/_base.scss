@@ -467,6 +467,7 @@ footer.sticky-bottom {
 // Publications
 
 .publications {
+  counter-reset: publication-number;
   margin-top: 2rem;
   h1 {
     color: var(--global-theme-color);
@@ -497,6 +498,7 @@ footer.sticky-bottom {
     top: -0.5rem;
 
     li {
+      counter-increment: publication-number;
       margin-bottom: 0.5rem;
       .preview {
         width: 100%;
@@ -504,15 +506,25 @@ footer.sticky-bottom {
         max-width: 200px;
       }
       .abbr {
-        height: 2rem;
+        min-height: 2rem;
         margin-bottom: 0.5rem;
+        .venue-label {
+          display: inline-block;
+          text-align: center;
+        }
+        .venue-type {
+          margin-top: 0.25rem;
+          font-size: 0.75rem;
+          color: var(--global-text-color-light);
+        }
         abbr {
           display: inline-block;
+          color: var(--global-card-bg-color) !important;
           background-color: var(--global-theme-color);
           padding-left: 1rem;
           padding-right: 1rem;
           a {
-            color: white;
+            color: inherit;
             &:hover {
               text-decoration: none;
             }
@@ -524,7 +536,55 @@ footer.sticky-bottom {
         }
       }
       .title {
+        &::before {
+          content: counter(publication-number) ".";
+          margin-right: 0.4rem;
+          flex-shrink: 0;
+          color: var(--global-text-color-light);
+        }
+        display: flex;
+        align-items: flex-start;
         font-weight: bolder;
+        &.publication-title-wrapped {
+          display: block;
+          .publication-title-icons {
+            vertical-align: baseline;
+          }
+        }
+        .publication-title-text {
+          min-width: 0;
+          flex-shrink: 0;
+          white-space: nowrap;
+        }
+        .publication-title-text.publication-title-wrap {
+          flex-shrink: 1;
+          white-space: normal;
+        }
+        .publication-title-icons {
+          display: inline-block;
+          flex-shrink: 0;
+          white-space: nowrap;
+        }
+        .publication-code {
+          display: inline-block;
+          margin-left: 0.3rem;
+          font-size: 1.1rem;
+        }
+        .publication-citation {
+          margin-left: 0.3rem;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          color: var(--global-text-color);
+          font-size: inherit;
+          font-family: inherit;
+          line-height: inherit;
+          cursor: pointer;
+          &:hover,
+          &:focus-visible {
+            color: var(--global-theme-color);
+          }
+        }
         .publication-award {
           position: relative;
           display: inline-block;

@@ -6,16 +6,25 @@
   url: https://journals.aps.org
 
 "OLA2021":
+  type: Conference
   url: https://ola2021.sciencesconf.org/
 
 "Algorithms":
+  type: Journal
   url: https://www.mdpi.com/journal/algorithms
 
 "SCAM2023":
+  type: Conference
   url: https://www.ieee-scam.org/2023/
 
 "ICPC2025":
+  type: Conference
   url: https://conf.researchr.org/home/icpc-2025
 
 "TOSEM":
+  type: Journal
   url: https://dl.acm.org/journal/tosem
+
+"ICSE2026":
+  type: Conference
+  url: https://conf.researchr.org/home/icse-2026

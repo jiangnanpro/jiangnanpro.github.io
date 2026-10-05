@@ -6,6 +6,7 @@ abbr = {TOSEM},
 author = {Huang, Jiangnan and Lin, Bin},
 title = {On the Reruns of GitHub Actions Workflows},
 year = {2026},
+bibtex_show={true},
 issue_date = {October 2026},
 publisher = {Association for Computing Machinery},
 address = {New York, NY, USA},
@@ -20,9 +21,30 @@ month = sep,
 articleno = {328},
 numpages = {32},
 keywords = {GitHub Actions, CI/CD, Software Repositories},
-pdf = {3795771.pdf}
+pdf = {3795771.pdf},
+code = {https://github.com/jiangnanpro/Reruns-of-GHA-workflow}
 }
 
+@inproceedings{10.1145/3774748.3787630,
+abbr = {ICSE2026},
+author = {Huang, Jiangnan},
+title = {Toward Intelligent, Reliable, and Secure Automation of CI/CD Workflows},
+year = {2026},
+bibtex_show={true},
+isbn = {9798400722967},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3774748.3787630},
+doi = {10.1145/3774748.3787630},
+abstract = {CI/CD pipelines form a core component of contemporary software engineering, automating key stages of the development lifecycle. Since its release in 2019, GitHub Actions (GHA) has rapidly emerged as the dominant CI/CD platform on GitHub, automating millions of workflows daily. However, as the ecosystem grows, developers face persistent challenges in automating GHA workflow creation, mitigating workflow failures, and ensuring security. To address these challenges, my doctoral research systematically examines how developers construct, maintain, and secure GHA workflows in practice, and proposes learning-based approaches to improve their automation quality. The research includes two empirical studies on workflow reliability (reruns and flakiness) and security (evolution of developers’ practices), along with two learning-based frameworks: CIGAR for recommending reusable Actions and FLOWSTEP for generating step-aware workflows. Together, they aim to build an intelligent and secure automation framework for GitHub Actions integrating reliability, security, and semantic understanding.},
+booktitle = {Proceedings of the 2026 IEEE/ACM 48th International Conference on Software Engineering},
+pages = {150–152},
+numpages = {3},
+keywords = {GitHub Actions, CI/CD, Automation, Security, Reliability},
+location = {Rio de Janeiro, Brazil},
+series = {ICSE-Companion '26},
+pdf = {3774748.3787630.pdf}
+}
 
 @inproceedings{Huang2025a,
  abbr = {ICPC2025},
@@ -31,6 +53,7 @@ pdf = {3795771.pdf}
  booktitle = {Proceedings of the 33rd International Conference on Program Comprehension},
  series = {ICPC '25},
  year = {2025},
+ bibtex_show={true},
  location = {Ottawa, Canada},
  abstract = {GitHub Actions, a built-in CI/CD service of GitHub released in 2019, has become one of the most widely adopted tools among developers for automating software development workflows. This popularity, however, brings security challenges, as vulnerable workflows can expose repositories and the software supply chains to significant risks. Existing studies have highlighted several types of potential security issues. Over the past few years, GitHub has been constantly promoting better security practices and developers have gained experience in using GitHub Actions. Investigating how developers’ practices for handling GitHub Actions security have changed over time could offer valuable insights for further strengthening the security of these workflows. In this study, we analyzed non-optimal security practices in 18,938 workflows from 5,246 active GitHub repositories. By comparing the prevalence of issues spotted in two different years (2022 and 2024), we find that some undesired practices still widely exist in repositories. However, some progress has been observed, such as the significant reduce of permission misconfigurations.},
  pages = {accepted},
@@ -43,6 +66,7 @@ pdf = {3795771.pdf}
 abbr = {SCAM2023},
 journal = {Source Code Analysis and Manipulation},
 year = {2023},
+bibtex_show={true},
 author = {Huang, Jiangnan and Lin, Bin},
 title = {CIGAR: Contrastive Learning for GitHub Action Recommendation},
 award = {Best Paper Award},
@@ -65,7 +89,8 @@ url = {https://www.mdpi.com/1999-4893/15/7/254},
 issn = {1999-4893},
 abstract = {We address the problem of defending predictive models, such as machine learning classifiers (Defender models), against membership inference attacks, in both the black-box and white-box setting, when the trainer and the trained model are publicly released. The Defender aims at optimizing a dual objective: utility and privacy. Privacy is evaluated with the membership prediction error of a so-called &ldquo;Leave-Two-Unlabeled&rdquo; LTU Attacker, having access to all of the Defender and Reserved data, except for the membership label of one sample from each, giving the strongest possible attack scenario. We prove that, under certain conditions, even a &ldquo;na&iuml;ve&rdquo; LTU Attacker can achieve lower bounds on privacy loss with simple attack strategies, leading to concrete necessary conditions to protect privacy, including: preventing over-fitting and adding some amount of randomness. This attack is straightforward to implement against any model trainer, and we demonstrate its performance against MemGaurd. However, we also show that such a na&iuml;ve LTU Attacker can fail to attack the privacy of models known to be vulnerable in the literature, demonstrating that knowledge must be complemented with strong attack strategies to turn the LTU Attacker into a powerful means of evaluating privacy. The LTU Attacker can incorporate any existing attack strategy to compute individual privacy scores for each training sample. Our experiments on the QMNIST, CIFAR-10, and Location-30 datasets validate our theoretical results and confirm the roles of over-fitting prevention and randomness in the algorithms to protect against privacy attacks.},
 doi = {10.3390/a15070254},
-pdf = {2202.02278.pdf}
+pdf = {2202.02278.pdf},
+code = {https://github.com/jiangnanpro/ppml-workshop}
 }
 
 @InProceedings{10.1007/978-3-030-85672-4_2,
@@ -83,20 +108,27 @@ isbn="978-3-030-85672-4",
 pdf={978-3-030-85672-4.pdf}
 }
 
+
 @article{10.1145/3749371,
 abbr = {TOSEM},
 author = {Zheng, Lianyu and Li, Shuang and Huang, Xi and Huang, Jiangnan and Lin, Bin and Chen, Jinfu and Xuan, Jifeng},
 title = {Why Do GitHub Actions Workflows Fail? An Empirical Study},
-year = {2025},
+year = {2026},
+bibtex_show={true},
+issue_date = {May 2026},
 publisher = {Association for Computing Machinery},
 address = {New York, NY, USA},
+volume = {35},
+number = {5},
 issn = {1049-331X},
 url = {https://doi.org/10.1145/3749371},
 doi = {10.1145/3749371},
-abstract = {GitHub Actions (GHA), a built-in continuous integration and continuous delivery (CI/CD) service of GitHub, has been widely adopted by developers, streamlining the automation of software development workflows. Despite its popularity, failures frequently occur during GHA workflow executions. Fixing these failures often requires significant human effort, and unsuccessful workflow executions waste computing resources. Understanding the reasons behind workflow failures could provide valuable insights for troubleshooting the existing issues of CI/CD and further improving the development process.In this paper, we present an empirical study to reveal the reasons behind GHA workflow failures. By manually analyzing 375 failed workflow executions across 260 open-source Java projects, we built a comprehensive taxonomy categorizing the common failure types. The taxonomy was further validated by surveying 151 developers. This study is the first empirical work to analyze GHA workflow failures, bringing valuable knowledge to the field of continuous integration in software engineering. Moreover, our taxonomy and survey results not only underscore the critical need for better tools and practices to mitigate these failures but also indicate the directions to enhance the efficiency and reliability of CI/CD pipelines.},
-note = {Just Accepted},
+abstract = {GitHub actions (GHA), a built-in continuous integration and continuous delivery (CI/CD) service of GitHub, has been widely adopted by developers, streamlining the automation of software development workflows. Despite its popularity, failures frequently occur during GHA workflow executions. Fixing these failures often requires significant human effort, and unsuccessful workflow executions waste computing resources. Understanding the reasons behind workflow failures could provide valuable insights for troubleshooting the existing issues of CI/CD and further improving the development process.In this article, we present an empirical study to reveal the reasons behind GHA workflow failures. By manually analyzing 375 failed workflow executions across 260 open-source Java projects, we built a comprehensive taxonomy categorizing the common failure types. The taxonomy was further validated by surveying 151 developers. This study is the first empirical work to analyze GHA workflow failures, bringing valuable knowledge to the field of continuous integration in software engineering. Moreover, our taxonomy and survey results not only underscore the critical need for better tools and practices to mitigate these failures but also indicate the directions to enhance the efficiency and reliability of CI/CD pipelines.},
 journal = {ACM Trans. Softw. Eng. Methodol.},
-month = jul,
+month = apr,
+articleno = {139},
+numpages = {29},
 keywords = {GitHub Workflow, Continuous Integration},
-pdf = {3749371.pdf}
+pdf = {3749371.pdf},
+code = {https://github.com/zhengly1/workflow_failure}
 }
