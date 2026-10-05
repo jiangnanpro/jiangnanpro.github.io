@@ -10,6 +10,19 @@
     {% include opening-animation-head.html %}
   {%- endif -%}
   {% include head.html %}
+  {% if page.url == '/publications/' or page.url == '/cv/' %}
+    <style>
+      .page-reveal { animation: page-enter 0.8s ease-out both; animation-delay: var(--entrance-delay, 0s); }
+      html.transition .page-reveal { transition: none !important; }
+      @keyframes page-enter {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .page-reveal { animation: none; }
+      }
+    </style>
+  {% endif %}
   </head>
 
   <!-- Body -->

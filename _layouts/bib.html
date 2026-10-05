@@ -28,7 +28,24 @@
           {{reference}}
         {%- else %}
           <!-- Title -->
-          <div class="title">{{entry.title}}</div>
+          <div class="title">
+            {% if entry.pdf %}
+              {% if entry.pdf contains '://' %}
+                {% assign title_pdf_url = entry.pdf %}
+              {% else %}
+                {% assign title_pdf_url = entry.pdf | prepend: '/assets/pdf/' | relative_url %}
+              {% endif %}
+              <a href="{{ title_pdf_url }}">{{ entry.title }}</a>
+            {% else %}
+              {{ entry.title }}
+            {% endif %}
+            {% if entry.award %}
+              <span class="publication-award" aria-label="{{ entry.award | escape }}">
+                <i class="fas fa-trophy" aria-hidden="true"></i>
+                <span class="publication-award-tooltip" aria-hidden="true">{{ entry.award }}</span>
+              </span>
+            {% endif %}
+          </div>
           <!-- Author -->
           <div class="author">
           {% assign author_array_size = entry.author_array | size %}

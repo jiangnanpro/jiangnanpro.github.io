@@ -11,8 +11,10 @@ nav_order: 1
 <div class="publications">
 
 {%- for y in page.years %}
+  <div class="page-reveal" style="--entrance-delay: {{ forloop.index | times: 0.08 }}s">
   <h2 class="year">{{y}}</h2>
   {% bibliography -f papers -q @*[year={{y}}]* %}
+  </div>
 {% endfor %}
 
 </div>
