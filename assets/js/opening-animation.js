@@ -46,12 +46,10 @@
     revealPage();
   }
 
-  prepareHomepage();
-
   if (!document.documentElement.classList.contains('opening-armed')) {
-    animateHomepage();
     return;
   }
+  prepareHomepage();
   if (window.__openingGsapFailed || typeof gsap === 'undefined') {
     revealPage();
     return;

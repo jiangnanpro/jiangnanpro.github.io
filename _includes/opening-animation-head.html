@@ -1,4 +1,23 @@
 <style>
+  html.homepage-return .post-header,
+  html.homepage-return .profile,
+  html.homepage-return .post article > .clearfix > *,
+  html.homepage-return .post article > .social {
+    animation: homepage-enter 0.8s ease-out both;
+  }
+
+  html.homepage-return.transition .post-header,
+  html.homepage-return.transition .profile,
+  html.homepage-return.transition .post article > .clearfix > *,
+  html.homepage-return.transition .post article > .social {
+    transition: none !important;
+  }
+
+  @keyframes homepage-enter {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   html.transition .homepage-reveal {
     transition: none !important;
   }
@@ -89,6 +108,12 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    html.homepage-return .post-header,
+    html.homepage-return .profile,
+    html.homepage-return .post article > .clearfix > *,
+    html.homepage-return .post article > .social {
+      animation: none;
+    }
     .opening-overlay {
       display: none;
     }
@@ -97,9 +122,8 @@
 
 <script>
   try {
-    var localPreview = ['localhost', '127.0.0.1', '0.0.0.0', '::1'].includes(window.location.hostname);
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && (localPreview || !sessionStorage.getItem('opening_seen'))) {
-      document.documentElement.classList.add('opening-armed');
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add(sessionStorage.getItem('opening_seen') ? 'homepage-return' : 'opening-armed');
     }
   } catch (error) {}
 </script>
