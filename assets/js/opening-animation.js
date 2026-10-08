@@ -1,11 +1,27 @@
 (function () {
   var timeline;
   var entranceStarted = false;
+  var handoffStarted = false;
   var homepageBlocks;
+
+  // Start preparing visible homepage assets while the name animation runs.
+  var homepageReady = Promise.allSettled([
+    document.fonts ? document.fonts.ready : Promise.resolve(),
+    ...Array.from(document.querySelectorAll('.homepage-layout img')).map(function (image) {
+      image.loading = 'eager';
+      if (image.closest('.about-photo')) image.fetchPriority = 'high';
+      if (image.decode) return image.decode();
+      if (image.complete) return Promise.resolve();
+      return new Promise(function (resolve) {
+        image.addEventListener('load', resolve, { once: true });
+        image.addEventListener('error', resolve, { once: true });
+      });
+    })
+  ]);
 
   function prepareHomepage() {
     if (homepageBlocks || typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    homepageBlocks = document.querySelectorAll('.post-header, .profile, .post article > .clearfix > *, .post article > .social');
+    homepageBlocks = document.querySelectorAll('.homepage-identity .post-header, .homepage-identity .section-nav, #about .homepage-section-title, #about .about-photo, #about article > .clearfix > *, #about article > .social');
     homepageBlocks.forEach(function (block) { block.classList.add('homepage-reveal'); });
     gsap.set(homepageBlocks, { y: 20, opacity: 0 });
   }
@@ -19,13 +35,14 @@
       y: 0,
       opacity: 1,
       duration: 0.8,
-      stagger: 0.08,
       ease: 'power2.out',
       onComplete: function () { gsap.set(blocks, { clearProps: 'transform,opacity' }); }
     });
   }
 
-  function revealPage() {
+  function beginHandoff() {
+    if (handoffStarted) return;
+    handoffStarted = true;
     document.removeEventListener('click', skipAnimation);
     document.removeEventListener('scroll', skipAnimation);
     document.removeEventListener('keydown', skipAnimation);
@@ -34,9 +51,16 @@
       sessionStorage.setItem('opening_seen', '1');
     } catch (error) {}
 
+    document.documentElement.classList.add('opening-handoff');
     document.documentElement.classList.remove('opening-ready', 'opening-armed');
-    window.scrollTo(0, 0);
+    if (!window.location.hash) window.scrollTo(0, 0);
+    window.dispatchEvent(new Event('homepage-opening-complete'));
     animateHomepage();
+  }
+
+  function revealPage() {
+    beginHandoff();
+    document.documentElement.classList.remove('opening-handoff');
   }
 
   function skipAnimation() {
@@ -59,14 +83,6 @@
   document.addEventListener('scroll', skipAnimation);
   document.addEventListener('keydown', skipAnimation);
 
-  gsap.set('.opening-cube', {
-    xPercent: -50,
-    yPercent: -50,
-    width: '0em',
-    height: '0.82em',
-    autoAlpha: 0
-  });
-
   gsap.set('.opening-letter', {
   y: 0,
   yPercent: 110,
@@ -86,33 +102,26 @@
       ease: 'expo.out',
       stagger: 0.02,
     }, 0)
-    .addLabel('letters-complete', 1.04)
-    .set('.opening-letter', { yPercent: 0 }, 'letters-complete')
-    .to('.opening-gap', { width: '0.82em', duration: 1.1 }, 'letters-complete')
-    .set('.opening-cube', { autoAlpha: 1 }, 'letters-complete')
-    .to('.opening-cube', { width: '0.82em', duration: 1.1 }, 'letters-complete')
-    .set('.opening-cube', {
-      width: '220vmax',
-      height: '220vmax',
-      scale: function () {
-        var nameSize = parseFloat(getComputedStyle(document.querySelector('.opening-name')).fontSize);
-        return (0.82 * nameSize) / (2.2 * Math.max(window.innerWidth, window.innerHeight));
-      }
+    .addPause('+=0.35', function () {
+      // Keep the name visible if a slower connection needs a little longer.
+      homepageReady.then(function () {
+        if (!handoffStarted) timeline.resume();
+      });
     })
-    .to('.opening-cube', {
-      scale: 1,
-      duration: 1,
-      ease: 'power3.inOut'
-    }, '+=0.2')
-    .to('.opening-name-part', { autoAlpha: 1, duration: 0.25 }, '<0.15')
-    .set('body > header, body > .container, body > footer', { autoAlpha: 1 })
-    .addLabel('homepage-reveal')
+    .to('.opening-letter', {
+      ease: 'none',
+      keyframes: [
+        { yPercent: -12, duration: 0.18, ease: 'power2.out' },
+        { yPercent: 110, duration: 0.45, ease: 'power2.in' }
+      ],
+      stagger: { each: 0.045, from: 'start' }
+    })
+    .call(beginHandoff)
     .to('.opening-overlay', {
       autoAlpha: 0,
-      duration: 0.8,
+      duration: 0.35,
       ease: 'power2.inOut'
-    }, 'homepage-reveal')
-    .call(animateHomepage, [], 'homepage-reveal');
+    });
 
   document.documentElement.classList.add('opening-ready');
 }());

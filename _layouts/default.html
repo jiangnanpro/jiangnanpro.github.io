@@ -10,38 +10,26 @@
     {% include opening-animation-head.html %}
   {%- endif -%}
   {% include head.html %}
-  {% if page.url == '/publications/' or page.url == '/cv/' %}
-    <style>
-      .page-reveal { animation: page-enter 0.8s ease-out both; animation-delay: var(--entrance-delay, 0s); }
-      html.transition .page-reveal { transition: none !important; }
-      @keyframes page-enter {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .page-reveal { animation: none; }
-      }
-    </style>
-  {% endif %}
   </head>
 
   <!-- Body -->
-  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+  <body class="{% if site.navbar_fixed and page.url != '/' %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %} {% if page.url == '/' %}homepage-wide{% endif %}">
 
     {%- if page.url == '/' -%}
       {% include opening-animation.html %}
     {%- endif -%}
 
     <!-- Header -->
-    {%- include header.html %}
+    {% unless page.url == '/' %}{% include header.html %}{% endunless %}
 
     <!-- Content -->
     <div class="container mt-5">
       {{ content }}
     </div>
 
+
     <!-- Footer -->
-    {%- include footer.html %}
+    {% include footer.html %}
 
     <!-- JavaScripts -->
     {% include scripts/jquery.html %}

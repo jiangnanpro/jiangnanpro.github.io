@@ -1,12 +1,21 @@
+{% if page.profile.image %}
+<link rel="preload" as="image" href="{{ page.profile.image | prepend: '/assets/img/' | relative_url }}" fetchpriority="high">
+{% endif %}
 <style>
-  html.homepage-return .post-header,
+  html.homepage-return .homepage-identity .post-header,
+  html.homepage-return .homepage-identity .section-nav,
+  html.homepage-return #about .homepage-section-title,
+  html.homepage-return #about .about-photo,
   html.homepage-return .profile,
   html.homepage-return .post article > .clearfix > *,
   html.homepage-return .post article > .social {
     animation: homepage-enter 0.8s ease-out both;
   }
 
-  html.homepage-return.transition .post-header,
+  html.homepage-return.transition .homepage-identity .post-header,
+  html.homepage-return.transition .homepage-identity .section-nav,
+  html.homepage-return.transition #about .homepage-section-title,
+  html.homepage-return.transition #about .about-photo,
   html.homepage-return.transition .profile,
   html.homepage-return.transition .post article > .clearfix > *,
   html.homepage-return.transition .post article > .social {
@@ -37,11 +46,13 @@
     background: var(--global-bg-color);
   }
 
-  html.opening-armed {
+  html.opening-armed,
+  html.opening-handoff {
     overflow: hidden;
   }
 
-  html.opening-armed .opening-overlay {
+  html.opening-armed .opening-overlay,
+  html.opening-handoff .opening-overlay {
     display: block;
   }
 
@@ -77,6 +88,8 @@
   .opening-name-part {
     display: flex;
     overflow: hidden;
+    padding-top: 0.16em;
+    margin-top: -0.16em;
     padding-bottom: 0.08em;
     margin-bottom: -0.08em;
   }
@@ -95,20 +108,11 @@
     height: 0.82em;
   }
 
-  .opening-cube {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 1;
-    width: 0;
-    height: 0.82em;
-    background: #0076df;
-    visibility: hidden;
-    opacity: 0;
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    html.homepage-return .post-header,
+    html.homepage-return .homepage-identity .post-header,
+  html.homepage-return .homepage-identity .section-nav,
+  html.homepage-return #about .homepage-section-title,
+  html.homepage-return #about .about-photo,
     html.homepage-return .profile,
     html.homepage-return .post article > .clearfix > *,
     html.homepage-return .post article > .social {
@@ -122,7 +126,7 @@
 
 <script>
   try {
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!window.location.hash && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add(sessionStorage.getItem('opening_seen') ? 'homepage-return' : 'opening-armed');
     }
   } catch (error) {}

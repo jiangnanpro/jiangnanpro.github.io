@@ -1,0 +1,23 @@
+            <div class="cv">
+              {% assign intro_text = include.intro | strip %}{% if intro_text != empty %}<div class="cv-intro page-reveal">{{ include.intro }}</div>{% endif %}
+              {% for entry in site.data.cv %}
+                <section class="cv-section page-reveal" style="--entrance-delay: {{ forloop.index | times: 0.08 }}s">
+                  {% unless entry.title == "Professional" %}
+                  <h2 class="cv-section-title">{{ entry.title }}</h2>
+                  {% endunless %}
+                  <div>
+                  {% if entry.type == "list" %}
+                    {% include cv/list.html %}
+                  {% elsif entry.type == "map" %}
+                    {% include cv/map.html %}
+                  {% elsif entry.type == "nested_list" %}
+                    {% include cv/nested_list.html %}
+                  {% elsif entry.type == "time_table" %}
+                   {% include cv/time_table.html %}
+                  {% else %}
+                    {{ entry.contents }}
+                  {% endif %}
+                  </div>
+                </section>
+              {% endfor %}
+              </div>
