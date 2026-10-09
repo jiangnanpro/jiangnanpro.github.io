@@ -16,7 +16,7 @@ footer_text: >
 keywords: Jiangnan Huang, software engineering, AI research, CI/CD
 
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: prof_img2.jpg  # favicon image in /assets/img/
+icon: favicon-marseille.png  # favicon image in /assets/img/
 
 url: https://jiangnanpro.github.io # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/

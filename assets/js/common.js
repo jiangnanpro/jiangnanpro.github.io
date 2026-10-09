@@ -157,6 +157,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var revealObserver;
     function positionOpeningAbout() {
         var about = sections[0];
+        var previousMargin = about.style.marginTop;
+        var previousTransform = openingIdentity && openingIdentity.style.transform;
+        var previousSpacing = openingIdentity && openingIdentity.style.getPropertyValue('--opening-spacing');
+        about.classList.add('opening-measuring');
+        if (openingIdentity) openingIdentity.classList.add('opening-measuring');
         about.style.marginTop = '';
         if (openingIdentity) openingIdentity.style.transform = '';
         if (openingIdentity) openingIdentity.style.setProperty('--opening-spacing', '0px');
@@ -179,6 +184,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 openingIdentity.style.transform = 'translateY(' + identityOffset + 'px)';
             }
         }
+        // Measure the normal layout without an in-flight collapse affecting the result.
+        var nextMargin = about.style.marginTop;
+        var nextTransform = openingIdentity && openingIdentity.style.transform;
+        var nextSpacing = openingIdentity && openingIdentity.style.getPropertyValue('--opening-spacing');
+        about.style.marginTop = previousMargin;
+        if (openingIdentity) {
+            openingIdentity.style.transform = previousTransform;
+            openingIdentity.style.setProperty('--opening-spacing', previousSpacing);
+        }
+        void about.offsetHeight;
+        about.classList.remove('opening-measuring');
+        if (openingIdentity) openingIdentity.classList.remove('opening-measuring');
+        void about.offsetHeight;
+        about.style.marginTop = nextMargin;
+        if (openingIdentity) {
+            openingIdentity.style.transform = nextTransform;
+            openingIdentity.style.setProperty('--opening-spacing', nextSpacing);
+        }
     }
     sections.slice(1).forEach(function (section) { section.classList.add('scroll-pending'); });
     if ('IntersectionObserver' in window) {
@@ -193,7 +216,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function startBrowsing(force) {
         if (document.documentElement.classList.contains('opening-armed')) return;
-        if (!browsingStarted && (force === true || window.scrollY > 20 || (location.hash && location.hash !== '#about'))) {
+        if (browsingStarted && force && force.type === 'scroll' && window.scrollY <= 1 && window.matchMedia('(min-width: 992px)').matches) {
+            browsingStarted = false;
+            positionOpeningAbout();
+            if (cue) cue.classList.remove('is-dismissed');
+            updateContentFade();
+            return;
+        }
+        var navigatedToSection = force && force.type === 'hashchange' && location.hash && location.hash !== '#about';
+        if (!browsingStarted && (force === true || window.scrollY > 20 || navigatedToSection)) {
             browsingStarted = true;
             sections[0].classList.add('opening-about-transition');
             if (openingIdentity) openingIdentity.classList.add('opening-identity-transition');

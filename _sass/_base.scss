@@ -1458,3 +1458,10 @@ html.transition *:after {
     }
   }
 }
+
+// Read opening geometry immediately, then animate to the measured target.
+.opening-measuring,
+.opening-measuring .section-nav,
+.opening-measuring .sidebar-social {
+  transition: none !important;
+}
