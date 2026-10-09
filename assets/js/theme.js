@@ -20,7 +20,7 @@ let setTheme = (theme) =>  {
     document.documentElement.removeAttribute("data-theme");
   }
   localStorage.setItem("theme", theme);
-  
+
   // Updates the background of medium-zoom overlay.
   if (typeof medium_zoom !== 'undefined') {
     medium_zoom.update({
@@ -41,11 +41,13 @@ let setHighlight = (theme) => {
 }
 
 
+let themeTransitionTimer;
 let transTheme = () => {
+  window.clearTimeout(themeTransitionTimer);
   document.documentElement.classList.add("transition");
-  window.setTimeout(() => {
+  themeTransitionTimer = window.setTimeout(() => {
     document.documentElement.classList.remove("transition");
-  }, 500)
+  }, 350)
 }
 
 
@@ -56,7 +58,7 @@ let initTheme = (theme) => {
         theme = 'dark';
     }
   }
-  
+
   setTheme(theme);
 }
 

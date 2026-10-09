@@ -652,7 +652,8 @@ html { scroll-behavior: smooth; }
     .contact-visuals { grid-template-columns: minmax(0, 1fr); }
   }
 }
-html:not([data-theme='dark']) .contact-distance .distance-globe {
+// Keep the backing solid during theme changes; transparency exposes the page fade.
+.contact-distance .distance-globe {
   background-color: v.$grey-color-dark;
   border-radius: 6px;
 }
@@ -1392,21 +1393,18 @@ code {
 }
 
 
-// Transitioning Themes
+// Theme switches animate colors together without affecting layout or movement.
 html.transition,
 html.transition *,
 html.transition *:before,
 html.transition *:after {
-  transition: all 750ms !important;
+  transition: color 300ms ease, background-color 300ms ease, border-color 300ms ease !important;
   transition-delay: 0 !important;
 }
-
-// Opening geometry must settle immediately, even while the theme initializes.
-html.transition .homepage-identity:not(.opening-identity-transition),
-html.transition .homepage-identity:not(.opening-identity-transition) .section-nav,
-html.transition .homepage-identity:not(.opening-identity-transition) .sidebar-social,
-html.transition .homepage-main > #about:not(.opening-about-transition) {
-  transition: none !important;
+@media (prefers-reduced-motion: reduce) {
+  html.transition, html.transition *, html.transition *:before, html.transition *:after {
+    transition: none !important;
+  }
 }
 
 // Extra Markdown style (post Customization)
