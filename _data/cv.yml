@@ -6,13 +6,6 @@
       year: Oct 2022 – Present
       summary: >
         My Ph.D. brings together AI and software engineering. I build tools that help developers work with GitHub Actions, and study what happens when automated workflows fail or introduce security risks.
-      sub_experiences:
-        - title: Visiting Researcher
-          institution: HDU · Hangzhou, China
-          year: Jun – Jul 2025
-        - title: Visiting Researcher
-          institution: NAIST · Nara, Japan
-          year: Nov 2024 – Jan 2025
       teaching:
         courses:
           - Software Engineering

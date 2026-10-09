@@ -1,23 +1,28 @@
 $(document).ready(function() {
     document.querySelectorAll('.contact-distance').forEach(function (container) {
-        var button = container.querySelector('.distance-button');
         var result = container.querySelector('.distance-result');
         var cachedMessage;
-        button.addEventListener('click', async function () {
-            if (cachedMessage) { result.textContent = cachedMessage; return; }
-            button.disabled = true;
+        var loading = false;
+        var cachedLocation;
+        function showGlobe() {
+            if (window.renderDistanceGlobe) window.renderDistanceGlobe(container, cachedLocation);
+        }
+        async function loadDistance() {
+            if (cachedMessage) { result.textContent = cachedMessage; showGlobe(); return; }
+            if (loading) return;
+            loading = true;
             result.textContent = 'Estimating the distance…';
             var controller = new AbortController();
             var timeout = setTimeout(function () { controller.abort(); }, 8000);
             try {
-                var response = await fetch('https://ipapi.co/json/', {
+                var response = await fetch('https://ipwho.is/', {
                     signal: controller.signal, credentials: 'omit', referrerPolicy: 'no-referrer'
                 });
                 if (!response.ok) throw new Error('Location unavailable');
                 var location = await response.json();
                 var lat = location.latitude;
                 var lon = location.longitude;
-                if (location.error || typeof lat !== 'number' || typeof lon !== 'number' ||
+                if (location.success !== true || typeof lat !== 'number' || typeof lon !== 'number' ||
                     !Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90 || Math.abs(lon) > 180) {
                     throw new Error('Invalid location');
                 }
@@ -33,13 +38,21 @@ $(document).ready(function() {
                     : 'You’re approximately ' + rounded.toLocaleString() + ' km from my office, based on your IP location.';
                 cachedMessage += ' Straight-line distance.';
                 result.textContent = cachedMessage;
+                cachedLocation = { lat: lat, lng: lon };
+                showGlobe();
             } catch (error) {
-                result.textContent = 'Couldn’t estimate your location right now. You can try again.';
+                result.textContent = 'Couldn’t estimate your location right now.';
+                showGlobe();
             } finally {
                 clearTimeout(timeout);
-                button.disabled = false;
+                loading = false;
             }
-        });
+        }
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (entries) {
+                if (entries[0].isIntersecting) loadDistance();
+            }, { threshold: 0.1 }).observe(container);
+        } else loadDistance();
     });
     $('.bibtex.hidden pre').on('scroll', function () {
         var box = this;

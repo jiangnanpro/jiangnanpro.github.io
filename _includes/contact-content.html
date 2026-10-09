@@ -2,10 +2,13 @@
 
 <p class="contact-detail"><strong>Location:</strong> Mercator I, Toernooiveld 200–208, Nijmegen, Netherlands</p>
 
-<iframe class="contact-map" title="Mercator I in Nijmegen on Google Maps" src="https://www.google.com/maps?q=Mercator%20I%2C%20Toernooiveld%20200%2C%20Nijmegen%2C%20Netherlands&amp;z=13&amp;output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
-
 <div class="contact-distance" data-latitude="51.8252749" data-longitude="5.8685962">
-  <button type="button" class="distance-button" aria-describedby="distance-note">How far away are we?</button>
-  <p id="distance-note" class="distance-note">Uses ipapi.co to estimate your location from your IP address. VPNs can affect accuracy.</p>
+  <div class="contact-visuals">
+    <iframe class="contact-map" title="Mercator I in Nijmegen on Google Maps" src="https://www.google.com/maps?q=Mercator%20I%2C%20Toernooiveld%20200%2C%20Nijmegen%2C%20Netherlands&amp;z=13&amp;output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="distance-globe">
+      <p class="distance-globe-status" role="status">Preparing the globe…</p>
+      <div class="distance-globe-canvas" tabindex="0" role="region" aria-label="Interactive globe connecting your approximate location to my office. Drag or use arrow keys to rotate. Double-click to reset the view."></div>
+    </div>
+  </div>
   <p class="distance-result" role="status" aria-live="polite"></p>
 </div>

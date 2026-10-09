@@ -23,7 +23,7 @@
     if (homepageBlocks || typeof gsap === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     homepageBlocks = document.querySelectorAll('.homepage-identity .post-header, .homepage-identity .section-nav, #about .homepage-section-title, #about .about-photo, #about article > .clearfix > *, #about article > .social');
     homepageBlocks.forEach(function (block) { block.classList.add('homepage-reveal'); });
-    gsap.set(homepageBlocks, { y: 20, opacity: 0 });
+    gsap.set(homepageBlocks, { y: 12, opacity: 0 });
   }
 
   function animateHomepage() {
@@ -31,13 +31,14 @@
     entranceStarted = true;
     prepareHomepage();
     var blocks = homepageBlocks;
-    gsap.to(blocks, {
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power2.out',
+    var left = Array.from(blocks).filter(block => block.closest('.homepage-identity'));
+    var right = Array.from(blocks).filter(block => !block.closest('.homepage-identity'));
+    gsap.timeline({
+      defaults: { duration: 1.15, ease: 'power2.inOut' },
       onComplete: function () { gsap.set(blocks, { clearProps: 'transform,opacity' }); }
-    });
+    })
+      .to(left, { y: 0, opacity: 1 }, 0)
+      .to(right, { y: 0, opacity: 1 }, 0.16);
   }
 
   function beginHandoff() {
@@ -85,7 +86,7 @@
 
   gsap.set('.opening-letter', {
   y: 0,
-  yPercent: 110,
+  yPercent: 140,
   autoAlpha: 1
   });
 
@@ -102,25 +103,19 @@
       ease: 'expo.out',
       stagger: 0.02,
     }, 0)
-    .addPause('+=0.35', function () {
-      // Keep the name visible if a slower connection needs a little longer.
-      homepageReady.then(function () {
-        if (!handoffStarted) timeline.resume();
-      });
-    })
     .to('.opening-letter', {
       ease: 'none',
       keyframes: [
         { yPercent: -12, duration: 0.18, ease: 'power2.out' },
-        { yPercent: 110, duration: 0.45, ease: 'power2.in' }
+        { yPercent: 140, duration: 0.45, ease: 'power2.in' }
       ],
       stagger: { each: 0.045, from: 'start' }
-    })
+    }, '-=0.12')
     .call(beginHandoff)
     .to('.opening-overlay', {
       autoAlpha: 0,
-      duration: 0.35,
-      ease: 'power2.inOut'
+      duration: 0.5,
+      ease: 'sine.inOut'
     });
 
   document.documentElement.classList.add('opening-ready');

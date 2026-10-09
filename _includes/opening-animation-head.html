@@ -9,7 +9,15 @@
   html.homepage-return .profile,
   html.homepage-return .post article > .clearfix > *,
   html.homepage-return .post article > .social {
-    animation: homepage-enter 0.8s ease-out both;
+    animation: homepage-enter 1.15s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  html.homepage-return #about .homepage-section-title,
+  html.homepage-return #about .about-photo,
+  html.homepage-return #about .profile,
+  html.homepage-return #about article > .clearfix > *,
+  html.homepage-return #about article > .social {
+    animation-delay: 0.16s;
   }
 
   html.homepage-return.transition .homepage-identity .post-header,
@@ -23,7 +31,7 @@
   }
 
   @keyframes homepage-enter {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -90,8 +98,8 @@
     overflow: hidden;
     padding-top: 0.16em;
     margin-top: -0.16em;
-    padding-bottom: 0.08em;
-    margin-bottom: -0.08em;
+    padding-bottom: 0.25em;
+    margin-bottom: -0.25em;
   }
 
   .opening-letter {

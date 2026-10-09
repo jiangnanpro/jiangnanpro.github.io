@@ -151,7 +151,11 @@
           {%- endif -%}
           {%- capture periodical -%}{{ entrytype }}{{ entrymonth }}{{ entryyear }}{%- endcapture -%}
           <div class="periodical">
-            {{ periodical | strip }}
+            {%- if site.data.venues[entry.abbr].url -%}
+              <span class="periodical-desktop">{{ entrytype }}</span><a class="venue-name-mobile" href="{{ site.data.venues[entry.abbr].url }}">{{ entrytype }}</a>{{ entrymonth }}{{ entryyear }}
+            {%- else -%}
+              {{ periodical | strip }}
+            {%- endif -%}
           </div>
         {%- endif %}
         

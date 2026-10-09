@@ -57,7 +57,7 @@ Gallery entries live in `_projects/`, with images in `assets/img/`. The existing
 ## Contact integrations
 
 - Google Maps uses a simple iframe embed. Its `z` parameter controls the initial zoom; lower values show a wider area.
-- “How far away are we?” requests an approximate IP location from ipapi.co only after a visitor clicks the button. The browser calculates a straight-line distance to the configured office coordinates and rounds it to 10 km. VPNs and IP-location accuracy can affect the result. API limits or blocked requests show a retry message.
+- When Contact comes into view, the site requests an approximate IP location from ipwho.is. The browser calculates a straight-line distance to the configured office coordinates and rounds it to 10 km. VPNs and IP-location accuracy can affect the result. API limits or blocked requests show a retry message. An interactive globe beside Google Maps connects the visitor to the office after a successful lookup; if location lookup fails, it still shows the office. Globe.GL and its country outlines load from jsDelivr only on demand; the numeric distance remains available if WebGL or the globe assets are unavailable.
 - GoatCounter supplies the footer visitor count. Configure `goatcounter_code` in `_config.yml` and enable public visitor counts in the GoatCounter account.
 
 ## Deployment
