@@ -3,7 +3,10 @@ layout: about
 title: About
 permalink: /
 subtitle: Software Engineer & AI Researcher
-tagline: I build AI-powered software that turns complex problems into reliable solutions.
+tagline: |-
+  I build AI-powered software that
+  turns complex problems into
+  reliable solutions.
 
 profile:
   caption: Marseille, 08 2026

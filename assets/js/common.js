@@ -100,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var mainContent = document.querySelector('.homepage-main');
     function updateContentFade() {
         if (!mainContent) return;
+        var atPageEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+        mainContent.classList.toggle('content-fade-disabled', atPageEnd);
         var mainTop = mainContent.getBoundingClientRect().top;
         var viewportEdge = window.innerHeight - mainTop;
         var aboutBottom = sections[0].getBoundingClientRect().bottom - mainTop;
@@ -226,18 +228,37 @@ document.addEventListener('DOMContentLoaded', function () {
     var mobileMenu = document.querySelector('.mobile-section-menu');
     var mobileToggle = mobileMenu && mobileMenu.querySelector('button');
     var mobileList = mobileMenu && mobileMenu.querySelector('ul');
-    function closeMobileMenu() {
-        if (!mobileMenu) return;
-        mobileList.hidden = true;
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        mobileToggle.setAttribute('aria-label', 'Open section menu');
-    }
-    if (mobileMenu) {
-        mobileToggle.addEventListener('click', function () {
-            var open = mobileToggle.getAttribute('aria-expanded') !== 'true';
+    var mobileMenuAnimation;
+    function setMobileMenuOpen(open) {
+        if (!mobileMenu || (mobileToggle.getAttribute('aria-expanded') === 'true') === open) return;
+        var startHeight = mobileList.hidden ? 0 : mobileList.getBoundingClientRect().height;
+        var startOpacity = mobileList.hidden ? 0 : Number(getComputedStyle(mobileList).opacity);
+        if (mobileMenuAnimation) mobileMenuAnimation.cancel();
+        mobileList.hidden = false;
+        mobileList.inert = !open;
+        mobileToggle.setAttribute('aria-expanded', String(open));
+        mobileToggle.setAttribute('aria-label', open ? 'Close section menu' : 'Open section menu');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             mobileList.hidden = !open;
-            mobileToggle.setAttribute('aria-expanded', String(open));
-            mobileToggle.setAttribute('aria-label', open ? 'Close section menu' : 'Open section menu');
+            return;
+        }
+        var animation = mobileList.animate([
+            { height: startHeight + 'px', opacity: startOpacity },
+            { height: (open ? mobileList.getBoundingClientRect().height : 0) + 'px', opacity: open ? 1 : 0 }
+        ], { duration: 260, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' });
+        mobileMenuAnimation = animation;
+        animation.finished.then(function () {
+            if (mobileMenuAnimation !== animation) return;
+            mobileList.hidden = !open;
+            animation.cancel();
+            mobileMenuAnimation = null;
+        }).catch(function () {});
+    }
+    function closeMobileMenu() { setMobileMenuOpen(false); }
+    if (mobileMenu) {
+        mobileList.inert = true;
+        mobileToggle.addEventListener('click', function () {
+            setMobileMenuOpen(mobileToggle.getAttribute('aria-expanded') !== 'true');
         });
         document.addEventListener('click', function (event) {
             if (!mobileMenu.contains(event.target)) closeMobileMenu();
@@ -262,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var heading = section.querySelector('.homepage-section-title');
             var headingOffset = heading.getBoundingClientRect().top - section.getBoundingClientRect().top;
             var offset = parseFloat(getComputedStyle(identity).top) + name.offsetTop + nameHeight - heading.getBoundingClientRect().height - headingOffset;
-            section.style.scrollMarginTop = sticky ? offset + 'px' : '0px';
+            section.style.scrollMarginTop = sticky ? offset + 'px' : (window.matchMedia('(max-width: 991px)').matches ? '24px' : '0px');
         });
     }
     var clickedSection = null;

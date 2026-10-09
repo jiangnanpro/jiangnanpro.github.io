@@ -475,6 +475,10 @@ footer.sticky-bottom {
 @media (prefers-reduced-motion: reduce) {
   .section-nav ul::before, .section-nav .nav-link, .section-nav .nav-link::after { transition: none; }
 }
+.homepage-main.content-fade-disabled {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
 .homepage-main {
   overflow-anchor: none;
   min-width: 0;
@@ -588,6 +592,7 @@ html:not([data-theme='dark']) {
   }
 }
 @media (max-width: 575px) {
+  .homepage-wide > .container { margin-top: 1.5rem !important; }
   .homepage-identity .post-title { font-size: 2.6rem; }
   .homepage-main .homepage-section-title { font-size: 1.6rem; text-align: left; }
   .homepage-wide > .container,
@@ -646,6 +651,10 @@ html { scroll-behavior: smooth; }
   @media (max-width: 575px) {
     .contact-visuals { grid-template-columns: minmax(0, 1fr); }
   }
+}
+html:not([data-theme='dark']) .contact-distance .distance-globe {
+  background-color: v.$grey-color-dark;
+  border-radius: 6px;
 }
 .homepage-main > #about.opening-about-transition {
   transition: margin-top 700ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -767,6 +776,8 @@ html { scroll-behavior: smooth; }
       margin: 0.5rem 0 0;
       padding: 0.4rem;
       min-width: 170px;
+      box-sizing: border-box;
+      overflow: hidden;
       background: var(--global-bg-color);
       border: 1px solid var(--global-divider-color);
       border-radius: 6px;
@@ -1429,6 +1440,7 @@ html.transition .homepage-main > #about:not(.opening-about-transition) {
 // Keep the compact publication presentation and section rhythm on phones only.
 .venue-name-mobile { display: none; }
 @media (max-width: 575px) {
+  .homepage-identity .identity-tagline { max-width: none; white-space: pre-line; text-wrap: wrap; }
   .homepage-main .homepage-section { margin-top: 3rem; }
   // Section spacing comes from one shared margin, not trailing content margins.
   #about .about-introduction article > .clearfix > p:last-of-type { margin-bottom: 0; }
