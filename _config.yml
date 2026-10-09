@@ -167,6 +167,7 @@ defaults:
 
 jekyll-minifier:
   exclude: ['robots.txt']
+  compress_css: false
 
 # -----------------------------------------------------------------------------
 # Jekyll Scholar
