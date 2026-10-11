@@ -623,14 +623,15 @@ html { scroll-behavior: smooth; }
   font-weight: 700;
 }
 .contact-distance {
-  margin-top: 1.5rem;
+  --contact-visual-gap: 1.5rem;
+  margin-top: var(--contact-visual-gap);
   .contact-visuals {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
     align-items: start;
   }
-  .distance-result { margin: 0.75rem 0 0; }
+  .distance-result { margin: var(--contact-visual-gap) 0 0; }
   .distance-globe { position: relative; min-width: 0; height: 320px; }
   .distance-globe-canvas {
     width: 100%;

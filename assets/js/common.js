@@ -34,9 +34,8 @@ $(document).ready(function() {
                 var distance = 6371 * 2 * Math.asin(Math.sqrt(Math.min(1, Math.max(0, a))));
                 var rounded = Math.round(distance / 10) * 10;
                 cachedMessage = rounded < 10
-                    ? 'You’re approximately within 10 km of my office, based on your IP location.'
-                    : 'You’re approximately ' + rounded.toLocaleString() + ' km from my office, based on your IP location.';
-                cachedMessage += ' Straight-line distance.';
+                    ? 'You’re within 10 km of my office, based on your IP.'
+                    : 'You’re ' + rounded.toLocaleString() + ' km from my office, based on your IP.';
                 result.textContent = cachedMessage;
                 cachedLocation = { lat: lat, lng: lon };
                 showGlobe();
