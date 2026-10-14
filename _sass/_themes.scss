@@ -5,7 +5,7 @@
 @use "variables" as v;
 
 :root {
-  --global-bg-color: #{v.$white-color};
+  --global-bg-color: #dcd9d2;
   --global-code-bg-color: #{v.$code-bg-color-light};
   --global-text-color: #{v.$black-color};
   --global-text-color-light: #{v.$grey-color};
@@ -16,7 +16,7 @@
   --global-footer-link-color: #{v.$white-color};
   --global-distill-app-color: #{v.$grey-color};
   --global-divider-color: rgba(0,0,0,.1);
-  --global-card-bg-color: #{v.$white-color};
+  --global-card-bg-color: #dcd9d2;
 
   .fa-sun {
     display : none;
@@ -38,8 +38,9 @@
 html[data-theme='dark'] {
   --global-bg-color: #{v.$grey-color-dark};
   --global-code-bg-color: #{v.$code-bg-color-dark};
-  --global-text-color: #{v.$grey-color-light};
-  --global-text-color-light: #{v.$grey-color-light};
+  --global-text-color: #b0b0b0;
+  --global-text-color-light: #a0a0a0;
+  --global-heading-color: #e0e0e0;
   --global-theme-color: #{v.$cyan-color};
   --global-hover-color: #{v.$cyan-color};
   --global-footer-bg-color: #{v.$grey-color-light};

@@ -1,0 +1,10 @@
+<!-- Homepage publications -->
+<div class="publications">
+
+{%- for y in include.years %}
+  <div class="publication-year-group page-reveal" style="--entrance-delay: {{ forloop.index | times: 0.08 }}s">
+  {% bibliography -f papers -q @*[year={{y}}]* %}
+  </div>
+{% endfor %}
+
+</div>
