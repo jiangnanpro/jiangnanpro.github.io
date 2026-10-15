@@ -57,10 +57,44 @@
     return pin;
   }
 
+  function flightPath(start, end) {
+    var radians = Math.PI / 180;
+    function vector(location) {
+      var lat = location.lat * radians, lng = location.lng * radians;
+      return [Math.cos(lat) * Math.cos(lng), Math.sin(lat), Math.cos(lat) * Math.sin(lng)];
+    }
+    var a = vector(start), b = vector(end);
+    var dot = Math.max(-1, Math.min(1, a.reduce((sum, value, i) => sum + value * b[i], 0)));
+    var angle = Math.acos(dot);
+    var tangent = b.map((value, i) => value - dot * a[i]);
+    var length = Math.hypot(...tangent);
+    if (length < 1e-8) {
+      // Choose a stable great-circle plane for coincident or antipodal locations.
+      var axis = Math.abs(a[1]) < 0.9 ? [0, 1, 0] : [1, 0, 0];
+      var projection = axis.reduce((sum, value, i) => sum + value * a[i], 0);
+      tangent = axis.map((value, i) => value - projection * a[i]);
+      length = Math.hypot(...tangent);
+    }
+    tangent = tangent.map(value => value / length);
+    var steps = Math.max(64, Math.ceil(angle / radians * 2));
+    // Keep even intercontinental routes close to the globe: at most 4% above it.
+    var lift = Math.min(0.015, angle * 0.01);
+    return {
+      flight: true,
+      points: Array.from({ length: steps + 1 }, function (_, index) {
+        var t = index / steps;
+        var v = a.map((value, i) => value * Math.cos(angle * t) + tangent[i] * Math.sin(angle * t));
+        return [Math.atan2(v[2], v[0]) / radians,
+          Math.asin(Math.max(-1, Math.min(1, v[1]))) / radians,
+          0.025 + lift * Math.sin(Math.PI * t)];
+      })
+    };
+  }
+
   function setLocations(globe, office, visitor) {
     var markers = visitor ? [{ lat: visitor.lat, lng: visitor.lng, name: 'You' }] : [];
-    globe.pointsData(markers).labelsData(markers).htmlElementsData([office])
-      .arcsData(visitor ? [{ startLat: office.lat, startLng: office.lng, endLat: visitor.lat, endLng: visitor.lng }] : []);
+    globe.pointsData([office].concat(markers)).labelsData(markers).htmlElementsData([office])
+      .pathsData(globe.countryBorders.concat(visitor ? [flightPath(office, visitor)] : []));
   }
 
   window.renderDistanceGlobe = async function (container, visitor) {
@@ -99,14 +133,15 @@
         // Match the original polygon outline height with a slightly wider flat line.
         .pathsData(borders).pathPoints('points')
         .pathPointLat(point => point[1]).pathPointLng(point => point[0])
-        .pathPointAlt(0.0101).pathResolution(2).pathStroke(1.25).pathTransitionDuration(0)
+        .pathPointAlt(point => point[2] === undefined ? 0.0101 : point[2])
+        .pathResolution(0.5).pathStroke(path => path.flight ? 2.5 : 1.25).pathTransitionDuration(0)
         .pointAltitude(0.025).pointRadius(0.7).pointLabel('name').pointsTransitionDuration(0)
         .labelText('name').labelSize(2.8).labelDotRadius(0.45).labelAltitude(0.04)
         .labelDotOrientation(() => 'bottom')
         .labelLabel(() => '').labelsTransitionDuration(0)
         .htmlLat('lat').htmlLng('lng').htmlAltitude(0.025)
-        .htmlElement(createOfficePin).htmlTransitionDuration(0)
-        .arcStroke(0.5).arcAltitudeAutoScale(0.5).arcsTransitionDuration(0);
+        .htmlElement(createOfficePin).htmlTransitionDuration(0);
+      globe.countryBorders = borders;
       setLocations(globe, office, panel.pendingVisitor);
       globe.camera().up.set(0, 1, 0);
       globe.pointOfView(defaultView, 0);
@@ -133,8 +168,8 @@
       land.specular.set('#161616');
       land.shininess = 8;
       globe.polygonCapMaterial(() => land).polygonSideMaterial(() => land)
-        .pathColor(() => '#7c828b')
-        .pointColor(() => '#2698ba').arcColor(() => '#d94740')
+        .pathColor(path => path.flight ? '#d94740' : '#7c828b')
+        .pointColor(() => '#d94740').arcColor(() => '#d94740')
         .labelColor(() => '#253042');
       var ambientLight = globe.lights().find(light => light.isAmbientLight);
       ambientLight.color.set('#ffffff');
