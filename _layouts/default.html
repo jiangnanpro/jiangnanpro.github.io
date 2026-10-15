@@ -13,7 +13,7 @@
   </head>
 
   <!-- Body -->
-  <body class="{% if site.navbar_fixed and page.url != '/' %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %} {% if page.url == '/' %}homepage-wide{% endif %} {% if page.wide or page.layout == 'photo-diary' %}wide-page{% endif %}">
+  <body class="{% if site.navbar_fixed and page.url != '/' %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %} {% if page.url == '/' %}homepage-wide{% endif %} {% if page.wide or page.layout == 'photo-diary' %}wide-page{% endif %} {% if page.layout == 'places' %}places-fullscreen{% endif %}">
 
     {%- if page.url == '/' -%}
       {% include opening-animation.html %}
@@ -29,7 +29,7 @@
 
 
     <!-- Footer -->
-    {% include footer.html %}
+    {% unless page.layout == 'places' %}{% include footer.html %}{% endunless %}
 
     <!-- JavaScripts -->
     {% include scripts/jquery.html %}

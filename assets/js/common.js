@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-    var links = document.querySelectorAll('.section-nav a.nav-link, #navbarNav a.nav-link, .mobile-section-menu a');
+    var links = document.querySelectorAll('.section-nav a.nav-link[href^="#"], #navbarNav a.nav-link[href^="#"], .mobile-section-menu a[href^="#"]');
     function alignSectionHeadings() {
         var identity = document.querySelector('.homepage-identity');
         var name = document.querySelector('.homepage-identity .post-title');

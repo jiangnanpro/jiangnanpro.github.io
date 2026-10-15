@@ -1,0 +1,41 @@
+---
+layout: default
+---
+<div class="places-page" data-countries-url="{{ '/assets/data/places-countries.geojson' | relative_url }}">
+  <section class="places-atlas" aria-label="My travel map">
+    <div class="places-map-frame">
+      <svg class="places-map" viewBox="0 0 960 540" role="group" aria-label="Interactive world map. Drag or scroll with two fingers to pan, pinch to zoom, and select a visited country for photographs."></svg>
+      <p class="places-map-status" role="status">Loading the map…</p>
+    </div>
+    <noscript><p>Enable JavaScript to explore the map.</p></noscript>
+  </section>
+</div>
+<dialog class="places-lightbox" aria-label="Photograph viewer">
+  <div class="places-lightbox-controls">
+    <button type="button" data-photo-action="previous" aria-label="Previous photograph">←</button>
+    <p class="places-lightbox-position" aria-live="polite"></p>
+    <button type="button" data-photo-action="next" aria-label="Next photograph">→</button>
+    <button type="button" data-photo-action="close" aria-label="Close photograph">×</button>
+  </div>
+  <img class="places-lightbox-image" alt="">
+</dialog>
+<script type="application/json" id="places-data">[
+{%- for place in site.data.places -%}
+  {"code": {{ place.code | jsonify }}, "name": {{ place.name | jsonify }}, "photos": [
+  {%- assign photo_files = site.static_files | sort: 'path' -%}
+  {%- assign first_photo = true -%}
+  {%- for photo in photo_files -%}
+    {%- assign prefix = photo.path | slice: 0, place.folder.size -%}
+    {%- assign extension = photo.extname | downcase -%}
+    {%- if prefix == place.folder -%}
+      {%- if extension == '.jpg' or extension == '.jpeg' or extension == '.png' or extension == '.webp' or extension == '.avif' -%}
+        {%- unless first_photo -%},{%- endunless -%}{%- assign first_photo = false -%}
+        {"src": {{ photo.path | relative_url | jsonify }}}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  ]}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]</script>
+<script defer src="{{ '/assets/js/map-lib/d3.v7.min.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/places.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>

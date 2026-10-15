@@ -170,3 +170,55 @@ body.sticky-bottom-footer {
 *****************************************************************************/
 
 // TODO: redefine projects layout.
+
+// A personal atlas, separate from the professional homepage.
+.places-page {
+  --places-surface: var(--global-bg-color);
+  --places-land: color-mix(in srgb, var(--global-text-color) 18%, var(--global-bg-color));
+  --places-visited: color-mix(in srgb, var(--global-theme-color) 65%, var(--global-bg-color));
+  padding-bottom: 2rem;
+  .places-header { margin-bottom: 2rem; }
+  h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 0.5rem; color: var(--global-heading-color, var(--global-text-color)); }
+  .places-atlas { min-width: 0; }
+  .places-map-frame { position: relative; background: transparent; border: 0; border-radius: 0; overflow: hidden; }
+  .places-map { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; touch-action: none; cursor: grab; }
+  .places-map:active { cursor: grabbing; }
+  .places-ocean { fill: var(--places-surface); }
+  .places-country { fill: var(--places-land); stroke: var(--global-bg-color); stroke-width: 0.65; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .places-country.is-visited { fill: var(--places-visited); cursor: pointer; }
+  .places-country:focus, .places-map:focus { outline: none; }
+  .places-country.is-visited:focus-visible { fill: var(--global-theme-color); }
+  .places-country.is-visited:hover { fill: var(--global-theme-color); stroke: var(--global-heading-color, var(--global-text-color)); stroke-width: 1; }
+  .places-map-status { position: absolute; inset: 40% 1rem auto; text-align: center; color: var(--global-text-color-light); }
+
+}
+.places-home-link { display: none; margin-top: 1.25rem; color: var(--global-text-color-light); font-size: 0.9rem; }
+@media (max-width: 991px) { .places-home-link { display: inline-block; } }
+.places-lightbox {
+  width: min(1100px, calc(100vw - 2rem));
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100dvh - 2rem);
+  padding: 0.75rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 8px;
+  background: var(--global-bg-color);
+  color: var(--global-text-color);
+  &::backdrop { background: rgba(0, 0, 0, 0.8); }
+  .places-lightbox-controls { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+  .places-lightbox-position { margin: 0; flex: 1; text-align: center; font-size: 0.9rem; }
+  button { min-width: 44px; min-height: 44px; border: 0; background: transparent; color: inherit; font: inherit; font-size: 1.4rem; cursor: pointer; }
+  button:disabled { opacity: 0.3; cursor: default; }
+  button:focus-visible { outline: 2px solid var(--global-theme-color); }
+  img[hidden] { display: none; }
+  img { display: block; width: 100%; max-width: 100%; max-height: calc(100dvh - 7.5rem); object-fit: contain; }
+}
+
+body.places-fullscreen {
+  padding-top: var(--places-nav-height, 56px);
+  height: 100dvh;
+  overflow: hidden;
+  > .container { margin: 0 !important; padding: 0; max-width: none; width: 100%; }
+  .places-page { padding: 0; height: calc(100dvh - var(--places-nav-height, 56px)); }
+  .places-atlas, .places-map-frame { height: 100%; }
+  .places-map { height: 100%; aspect-ratio: auto; }
+}
