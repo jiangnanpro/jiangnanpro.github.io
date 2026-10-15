@@ -13,11 +13,13 @@
       Last updated: {{ "now" | date: '%B %d, %Y' }}.
     {%- endif %}
 
+    {% comment %}
     {% if site.enable_visitor_counter and site.goatcounter_code != empty and site.goatcounter_code %}
       <span id="visitor-counter" aria-live="polite">
         Visitors: <span id="visitor-count">Loading…</span>
       </span>
     {% endif %}
+    {% endcomment %}
   </div>
 </footer>
 
@@ -37,15 +39,19 @@
       Last updated: {{ "now" | date: '%B %d, %Y' }}.
     {%- endif %}
 
+    {% comment %}
     {% if site.enable_visitor_counter and site.goatcounter_code != empty and site.goatcounter_code %}
       <span id="visitor-counter" aria-live="polite">
         Visitors: <span id="visitor-count">Loading…</span>
       </span>
     {% endif %}
+    {% endcomment %}
   </div>
 </footer>
 {%- endif %}
 
+{% comment %}
 {% if site.enable_visitor_counter %}
   {% include scripts/visitor-counter.html %}
 {% endif %}
+{% endcomment %}

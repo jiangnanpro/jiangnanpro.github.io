@@ -1466,3 +1466,43 @@ html.transition *:after {
 .opening-measuring .sidebar-social {
   transition: none !important;
 }
+
+// Select the local image or Google map after the shared IP-country lookup.
+.contact-map-slot {
+  position: relative;
+  min-width: 0;
+  height: 320px;
+  border-radius: 6px;
+  overflow: hidden;
+  // Share one unscaled viewport; crop it identically at every screen width.
+  .contact-map {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 640px;
+    height: 320px;
+    max-width: none;
+    transform: translateX(-50%);
+  }
+  .contact-map-preview { object-fit: contain; z-index: 1; }
+  .contact-map-interactive { z-index: 0; opacity: 1; pointer-events: none; }
+  .contact-map-credit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1px 4px;
+    font: 10px/1.5 Arial, sans-serif;
+    color: #333;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 2;
+  }
+  &.is-deciding {
+    .contact-map-preview { visibility: hidden; }
+    .contact-map-credit { display: none; }
+  }
+  &.is-interactive {
+    .contact-map-preview { visibility: hidden; }
+    .contact-map-interactive { pointer-events: auto; }
+    // Keep full attribution visible even when the embedded viewport is cropped.
+  }
+}

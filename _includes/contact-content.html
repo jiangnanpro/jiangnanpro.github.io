@@ -4,7 +4,10 @@
 
 <div class="contact-distance" data-latitude="51.8252749" data-longitude="5.8685962">
   <div class="contact-visuals">
-    <iframe class="contact-map" title="Mercator I in Nijmegen on Google Maps" src="https://www.google.com/maps?q=51.8252749%2C5.8685962&amp;z=13&amp;output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="contact-map-slot" data-google-map-src="https://www.google.com/maps?q=51.8252749%2C5.8685962&amp;z=13&amp;output=embed">
+      <img class="contact-map contact-map-preview" src="{{ '/assets/img/contact-map-google.png' | relative_url }}" alt="Map showing Mercator I in Nijmegen, marked with a red pin" width="1280" height="640" loading="lazy" decoding="async">
+      <a class="contact-map-credit" href="https://www.google.com/intl/en/help/terms_maps/" aria-label="Google Maps data attribution">Map data ©2026 GeoBasis-DE/BKG (©2009), Google</a>
+    </div>
     <div class="distance-globe">
       <p class="distance-globe-status" role="status">Preparing the globe…</p>
       <div class="distance-globe-canvas" tabindex="0" role="region" aria-label="Interactive globe connecting your approximate location to my office. Drag or use arrow keys to rotate. Double-click to reset the view."></div>

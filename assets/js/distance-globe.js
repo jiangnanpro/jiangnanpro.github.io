@@ -134,7 +134,7 @@
       land.shininess = 8;
       globe.polygonCapMaterial(() => land).polygonSideMaterial(() => land)
         .pathColor(() => '#7c828b')
-        .pointColor(() => '#2698ba').arcColor(() => '#2698ba')
+        .pointColor(() => '#2698ba').arcColor(() => '#d94740')
         .labelColor(() => '#253042');
       var ambientLight = globe.lights().find(light => light.isAmbientLight);
       ambientLight.color.set('#ffffff');

@@ -1,0 +1,12 @@
+Google Maps contact-map snapshot
+Captured from the existing Google Maps embed on 2026-10-15.
+Source: https://www.google.com/maps?q=51.8252749%2C5.8685962&z=13&output=embed
+Viewport: 640 x 320 CSS pixels, device pixel ratio 2.
+Coordinates and zoom match the interactive contact map.
+The complete screenshot is retained, including Google branding and map controls.
+Map data ©2026 GeoBasis-DE/BKG (©2009), Google.
+The page repeats the complete map-data attribution next to the image because
+the fixed viewport can be cropped at narrower page widths. Both the screenshot
+and live iframe use a 640 x 320 internal view and the same centered crop.
+Guidelines: https://about.google/brand-resource-center/products-and-services/geo-guidelines/
+A static snapshot does not update automatically when Google's map changes.

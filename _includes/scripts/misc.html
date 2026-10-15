@@ -12,6 +12,8 @@
 
   <!-- Load Common JS -->
   {% if page.url == '/' %}
+  <script defer src="{{ '/assets/js/visitor-location.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+  <script defer src="{{ '/assets/js/contact-map.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
   <script defer src="{{ '/assets/js/distance-globe.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
   {% endif %}
   <script defer src="{{ '/assets/js/common.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>

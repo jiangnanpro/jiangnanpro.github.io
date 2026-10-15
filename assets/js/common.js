@@ -12,14 +12,8 @@ $(document).ready(function() {
             if (loading) return;
             loading = true;
             result.textContent = 'Estimating the distance…';
-            var controller = new AbortController();
-            var timeout = setTimeout(function () { controller.abort(); }, 8000);
             try {
-                var response = await fetch('https://ipwho.is/', {
-                    signal: controller.signal, credentials: 'omit', referrerPolicy: 'no-referrer'
-                });
-                if (!response.ok) throw new Error('Location unavailable');
-                var location = await response.json();
+                var location = await window.getVisitorLocation();
                 var lat = location.latitude;
                 var lon = location.longitude;
                 if (location.success !== true || typeof lat !== 'number' || typeof lon !== 'number' ||
@@ -40,10 +34,9 @@ $(document).ready(function() {
                 cachedLocation = { lat: lat, lng: lon };
                 showGlobe();
             } catch (error) {
-                result.textContent = 'Couldn’t estimate your location right now.';
+                result.textContent = '';
                 showGlobe();
             } finally {
-                clearTimeout(timeout);
                 loading = false;
             }
         }
