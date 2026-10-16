@@ -1444,6 +1444,7 @@ html.transition *:after {
 .venue-name-mobile { display: none; }
 @media (max-width: 575px) {
   .homepage-identity .identity-tagline { max-width: none; white-space: pre-line; text-wrap: wrap; }
+  .homepage-identity .identity-tagline-line { display: block; white-space: nowrap; }
   .homepage-main .homepage-section { margin-top: 3rem; }
   // Section spacing comes from one shared margin, not trailing content margins.
   #about .about-introduction article > .clearfix > p:last-of-type { margin-bottom: 0; }
