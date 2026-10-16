@@ -2,13 +2,81 @@ $(document).ready(function() {
     document.querySelectorAll('.contact-distance').forEach(function (container) {
         var result = container.querySelector('.distance-result');
         var cachedMessage;
+        var flightMessage;
         var loading = false;
         var cachedLocation;
+        var preciseLocation = false;
+        container.addEventListener('globe-flight-progress', function (event) {
+            var flight = event.detail;
+            if (flight.visitor !== cachedLocation) return;
+            flightMessage = flight.complete ? cachedMessage
+                : 'You’re ' + Math.round(flight.distance).toLocaleString() +
+                  ' km from my office, based on ' + (cachedLocation.precise ? 'your device location' : 'your IP') + '.';
+            // Keep the live region quiet while the number changes every frame.
+            result.setAttribute('aria-live', flight.complete ? 'polite' : 'off');
+            result.textContent = flightMessage;
+        });
+        function updateDistance(lat, lon, precise) {
+            var radians = function (degrees) { return degrees * Math.PI / 180; };
+            var officeLat = Number(container.dataset.latitude);
+            var officeLon = Number(container.dataset.longitude);
+            var a = Math.sin(radians(lat - officeLat) / 2) ** 2 +
+                Math.cos(radians(officeLat)) * Math.cos(radians(lat)) * Math.sin(radians(lon - officeLon) / 2) ** 2;
+            var distance = 6371 * 2 * Math.asin(Math.sqrt(Math.min(1, Math.max(0, a))));
+            var rounded = precise ? Math.round(distance) : Math.round(distance / 10) * 10;
+            var source = precise ? 'your device location' : 'your IP';
+            cachedMessage = !precise && rounded < 10
+                ? 'You’re within 10 km of my office, based on your IP.'
+                : 'You’re ' + rounded.toLocaleString() + ' km from my office, based on ' + source + '.';
+            result.textContent = cachedMessage;
+            flightMessage = null;
+            cachedLocation = { lat: lat, lng: lon, precise: precise };
+            showGlobe();
+        }
+        var locationButton = container.querySelector('.precise-location');
+        var locationStatus = container.querySelector('.precise-location-status');
+        var locationPrompt = container.querySelector('.precise-location-prompt');
+        var dotsTimer;
+        function locationFailed() {
+            clearInterval(dotsTimer);
+            locationStatus.textContent = 'Device location unavailable. ';
+            locationButton.textContent = 'Try again.';
+            locationButton.disabled = false;
+            locationButton.hidden = false;
+        }
+        locationButton.addEventListener('click', function () {
+            locationPrompt.hidden = true;
+            locationButton.hidden = true;
+            locationButton.disabled = true;
+            locationStatus.textContent = 'Waiting for your device location';
+            var dots = document.createElement('span');
+            dots.className = 'location-waiting-dots';
+            dots.setAttribute('aria-hidden', 'true');
+            dots.textContent = '.';
+            locationStatus.appendChild(dots);
+            var count = 1;
+            dotsTimer = setInterval(function () {
+                count = count % 3 + 1;
+                dots.textContent = '.'.repeat(count);
+            }, 450);
+            if (!window.previewDeviceLocation && !navigator.geolocation) { locationFailed(); return; }
+            var requestLocation = window.previewDeviceLocation || navigator.geolocation.getCurrentPosition.bind(navigator.geolocation);
+            requestLocation(function (position) {
+                clearInterval(dotsTimer);
+                preciseLocation = true;
+                updateDistance(position.coords.latitude, position.coords.longitude, true);
+                locationButton.disabled = false;
+                locationButton.hidden = false;
+                locationButton.textContent = 'Use my precise location';
+                locationPrompt.hidden = false;
+                locationStatus.textContent = '';
+            }, locationFailed, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
+        });
         function showGlobe() {
             if (window.renderDistanceGlobe) window.renderDistanceGlobe(container, cachedLocation);
         }
         async function loadDistance() {
-            if (cachedMessage) { result.textContent = cachedMessage; showGlobe(); return; }
+            if (cachedMessage) { result.textContent = flightMessage || cachedMessage; showGlobe(); return; }
             if (loading) return;
             loading = true;
             result.textContent = 'Estimating the distance…';
@@ -20,22 +88,9 @@ $(document).ready(function() {
                     !Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90 || Math.abs(lon) > 180) {
                     throw new Error('Invalid location');
                 }
-                var radians = function (degrees) { return degrees * Math.PI / 180; };
-                var officeLat = Number(container.dataset.latitude);
-                var officeLon = Number(container.dataset.longitude);
-                var a = Math.sin(radians(lat - officeLat) / 2) ** 2 +
-                    Math.cos(radians(officeLat)) * Math.cos(radians(lat)) * Math.sin(radians(lon - officeLon) / 2) ** 2;
-                var distance = 6371 * 2 * Math.asin(Math.sqrt(Math.min(1, Math.max(0, a))));
-                var rounded = Math.round(distance / 10) * 10;
-                cachedMessage = rounded < 10
-                    ? 'You’re within 10 km of my office, based on your IP.'
-                    : 'You’re ' + rounded.toLocaleString() + ' km from my office, based on your IP.';
-                result.textContent = cachedMessage;
-                cachedLocation = { lat: lat, lng: lon };
-                showGlobe();
+                if (!preciseLocation) updateDistance(lat, lon, false);
             } catch (error) {
-                result.textContent = '';
-                showGlobe();
+                if (!preciseLocation) { result.textContent = ''; showGlobe(); }
             } finally {
                 loading = false;
             }

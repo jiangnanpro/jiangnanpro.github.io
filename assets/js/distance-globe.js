@@ -1,6 +1,18 @@
 (function () {
   var libraryReady;
   var countriesReady;
+  var labelFontReady;
+  var labelFontUrl = new URL('../fonts/roboto/you-bold.typeface.json', document.currentScript.src).href;
+
+  function loadLabelFont() {
+    if (!labelFontReady) {
+      labelFontReady = fetch(labelFontUrl).then(function (response) {
+        if (!response.ok) throw new Error('Label font unavailable');
+        return response.json();
+      }).catch(function (error) { labelFontReady = null; throw error; });
+    }
+    return labelFontReady;
+  }
   var libraryUrl = 'https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js';
   var countriesUrl = 'https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/example/datasets/ne_110m_admin_0_countries.geojson';
 
@@ -91,10 +103,226 @@
     };
   }
 
+  function animateFlight(globe, office, visitor) {
+    if (globe.flightCleanup) globe.flightCleanup();
+    clearTimeout(globe.arrivalRippleTimer);
+    globe.ringsData([]);
+    if (!visitor) return;
+    var THREE = globe.flightThree;
+    var route = flightPath(office, visitor).points;
+    var vertices = route.map(function (point) {
+      var xyz = globe.getCoords(point[1], point[0], point[2]);
+      return new THREE.Vector3(xyz.x, xyz.y, xyz.z);
+    });
+    var group = new THREE.Group();
+    var material = new THREE.MeshBasicMaterial({ color: '#d94740' });
+    var curve = new THREE.CatmullRomCurve3(vertices);
+    var segments = Math.max(128, vertices.length * 2);
+    var tube = new THREE.TubeGeometry(curve, segments, 0.5, 8, false);
+    var line = new THREE.Mesh(tube, material);
+    group.add(line);
+    var plane = new THREE.Group();
+    // A raised fuselage and extruded swept wings make a small, solid 3D silhouette.
+    var bodyGeometry = new THREE.CylinderGeometry(0.28, 0.42, 3.8, 12);
+    var body = new THREE.Mesh(bodyGeometry, material);
+    plane.add(body);
+    function wing(outline, depth) {
+      var shape = new THREE.Shape();
+      outline.forEach(function (point, i) { if (i) shape.lineTo(...point); else shape.moveTo(...point); });
+      shape.closePath();
+      var geometry = new THREE.ExtrudeGeometry(shape, { depth: depth, bevelEnabled: false });
+      geometry.translate(0, 0, -depth / 2);
+      plane.add(new THREE.Mesh(geometry, material));
+    }
+    wing([[-2.5, -0.7], [-2.5, -0.1], [0, 1], [2.5, -0.1], [2.5, -0.7], [0, 0]], 0.18);
+    wing([[-1, -1.7], [-1, -1.3], [0, -0.8], [1, -1.3], [1, -1.7]], 0.15);
+    var finGeometry = new THREE.BoxGeometry(0.14, 0.9, 0.9);
+    var fin = new THREE.Mesh(finGeometry, material);
+    fin.position.set(0, -1.2, 0.4);
+    plane.add(fin);
+    group.add(plane);
+    var labelCanvas = document.createElement('canvas');
+    labelCanvas.width = 512;
+    labelCanvas.height = 128;
+    var labelContext = labelCanvas.getContext('2d');
+    var labelTexture = new THREE.CanvasTexture(labelCanvas);
+    labelTexture.colorSpace = THREE.SRGBColorSpace;
+    var labelMaterial = new THREE.MeshBasicMaterial({ map: labelTexture, transparent: true, depthTest: true, depthWrite: false, side: THREE.DoubleSide });
+    var distanceLabel = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), labelMaterial);
+    distanceLabel.scale.set(23, 5.75, 1);
+    distanceLabel.visible = false;
+    group.add(distanceLabel);
+    var radians = Math.PI / 180;
+    var distanceDot = Math.sin(office.lat * radians) * Math.sin(visitor.lat * radians) +
+      Math.cos(office.lat * radians) * Math.cos(visitor.lat * radians) * Math.cos((visitor.lng - office.lng) * radians);
+    var totalKm = 6371 * Math.acos(Math.max(-1, Math.min(1, distanceDot)));
+    // Below this distance, the fixed-size trailing label crowds the office pin.
+    var showFloatingDistance = totalKm >= 3000;
+    var previousKm = -1;
+    globe.scene().add(group);
+    tube.setDrawRange(0, 0);
+    plane.visible = false;
+    var frame, rippleFrame, elapsed = 0, previous, initialView, flightComplete = false;
+    var rippleMaterial;
+    var cameraLeadIn = 700;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Short routes arrive quickly; long routes remain comfortable to watch.
+    var duration = Math.max(800, Math.min(6500, 600 + totalKm * 0.5));
+    function tick(time) {
+      var canvas = globe.renderer().domElement;
+      var bounds = canvas.getBoundingClientRect();
+      var visibleHeight = Math.min(bounds.bottom, window.innerHeight) - Math.max(bounds.top, 0);
+      var panel = canvas.closest('.distance-globe');
+      var ready = panel && panel.querySelector('.distance-globe-status').hidden;
+      var visible = !document.hidden && ready && visibleHeight >= bounds.height * 0.6;
+      if (!visible) {
+        previous = undefined;
+        frame = requestAnimationFrame(tick);
+        return;
+      }
+      if (!initialView) {
+        initialView = globe.pointOfView();
+        var controls = globe.controls();
+        var damping = controls.enableDamping;
+        controls.enableDamping = false;
+        controls.update();
+        controls.enableDamping = damping;
+      }
+      if (previous !== undefined) elapsed += Math.max(0, Math.min(time - previous, 50));
+      previous = time;
+      var progress = reduced ? 1 : Math.max(0, Math.min(1, (elapsed - cameraLeadIn) / duration));
+      if (!reduced && elapsed < cameraLeadIn) {
+        var t = elapsed / cameraLeadIn;
+        t = t * t * (3 - 2 * t);
+        var longitudeDelta = ((office.lng - initialView.lng + 540) % 360) - 180;
+        globe.pointOfView({
+          lat: initialView.lat + (office.lat - initialView.lat) * t,
+          lng: initialView.lng + longitudeDelta * t,
+          altitude: initialView.altitude + (2.5 - initialView.altitude) * t
+        }, 0);
+      } else if (!reduced && !flightComplete) {
+        var target = globe.toGeoCoords(curve.getPointAt(progress));
+        globe.pointOfView({ lat: target.lat, lng: target.lng, altitude: 2.5 }, 0);
+      }
+      var position = curve.getPointAt(progress);
+      var forward = curve.getTangentAt(progress).normalize();
+      var up = position.clone().normalize();
+      var right = new THREE.Vector3().crossVectors(forward, up).normalize();
+      up.crossVectors(right, forward).normalize();
+      plane.position.copy(position);
+      plane.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(right, forward, up));
+      tube.setDrawRange(0, Math.floor(progress * segments) * 8 * 6);
+      plane.visible = !reduced && elapsed >= cameraLeadIn;
+      distanceLabel.visible = plane.visible && showFloatingDistance;
+      labelMaterial.opacity = 1;
+      // A fixed frame on the elevated route, independent of the camera.
+      // Text trails the aircraft and sits just beside the curve at the same height.
+      var labelProgress = Math.max(0, progress - 12 / Math.max(1, curve.getLength()));
+      var labelPosition = curve.getPointAt(labelProgress);
+      var labelForward = curve.getTangentAt(labelProgress).normalize();
+      var labelRadial = labelPosition.clone().normalize();
+      var labelSide = new THREE.Vector3().crossVectors(labelRadial, labelForward).normalize();
+      var labelNormal = new THREE.Vector3().crossVectors(labelForward, labelSide).normalize();
+      distanceLabel.position.copy(labelPosition).addScaledVector(labelSide, 3.5);
+      distanceLabel.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(labelForward, labelSide, labelNormal));
+      var kilometres = Math.round(totalKm * progress);
+      if (kilometres !== previousKm) {
+        previousKm = kilometres;
+        globe.flightContainer.dispatchEvent(new CustomEvent('globe-flight-progress', {
+          detail: { visitor: visitor, distance: totalKm * progress, complete: progress === 1 }
+        }));
+        labelContext.clearRect(0, 0, 512, 128);
+        labelContext.font = '700 80px Roboto, Arial, sans-serif';
+        labelContext.textAlign = 'center';
+        labelContext.textBaseline = 'middle';
+        var distanceText = kilometres.toLocaleString() + ' km';
+        labelContext.fillStyle = '#d94740';
+        labelContext.fillText(distanceText, 256, 64);
+        labelTexture.needsUpdate = true;
+      }
+      if (progress < 1) {
+        frame = requestAnimationFrame(tick);
+      } else if (!flightComplete) {
+        flightComplete = true;
+        plane.visible = false;
+        distanceLabel.visible = showFloatingDistance;
+        globe.flightContainer.dispatchEvent(new CustomEvent('globe-flight-progress', {
+          detail: { visitor: visitor, distance: totalKm, complete: true }
+        }));
+        var marker = { lat: visitor.lat, lng: visitor.lng, name: 'You', visitor: true, scale: 1 };
+        globe.pointsTransitionDuration(reduced ? 0 : 450).labelsTransitionDuration(reduced ? 0 : 450)
+          .pointsData([office, marker]).labelsData([marker]);
+        if (!reduced) {
+          // A filled band has visible thickness, unlike the native one-pixel ring.
+          rippleMaterial = new THREE.MeshBasicMaterial({
+            color: '#d94740', transparent: true, opacity: 0.95,
+            side: THREE.DoubleSide, depthWrite: false
+          });
+          var ripple = new THREE.Mesh(new THREE.RingGeometry(0.78, 1, 96), rippleMaterial);
+          var landing = globe.getCoords(visitor.lat, visitor.lng, 0.032);
+          ripple.position.set(landing.x, landing.y, landing.z);
+          ripple.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), ripple.position.clone().normalize());
+          group.add(ripple);
+          var rippleStart;
+          function expandRipple(time) {
+            if (rippleStart === undefined) rippleStart = time;
+            var t = Math.min(1, (time - rippleStart) / 1600);
+            var radius = 0.8 + 10 * (1 - Math.pow(1 - t, 2));
+            ripple.scale.set(radius, radius, 1);
+            rippleMaterial.opacity = 0.95 * (1 - t * t);
+            if (t < 1) rippleFrame = requestAnimationFrame(expandRipple);
+            else ripple.visible = false;
+          }
+          rippleFrame = requestAnimationFrame(expandRipple);
+        }
+        // Freeze this geographic position and orientation; free rotation changes
+        // only the view, never the final label's placement beside the route.
+        var arrivalView = globe.pointOfView();
+        var returnElapsed = 0;
+        var returnPrevious;
+        function returnNorth(time) {
+          var rect = globe.renderer().domElement.getBoundingClientRect();
+          var visible = !document.hidden && rect.bottom > 0 && rect.top < window.innerHeight;
+          if (visible && returnPrevious !== undefined) {
+            returnElapsed += Math.max(0, Math.min(time - returnPrevious, 50));
+          }
+          returnPrevious = visible ? time : undefined;
+          // Let the arrival label and ripple register before moving the camera.
+          var progress = reduced ? 1 : Math.max(0, Math.min(1, (returnElapsed - 1200) / 1000));
+          var eased = progress * progress * (3 - 2 * progress);
+          globe.camera().up.set(0, 1, 0);
+          globe.pointOfView({
+            lat: arrivalView.lat + (15 - arrivalView.lat) * eased,
+            lng: arrivalView.lng,
+            altitude: arrivalView.altitude
+          }, 0);
+          // Stop updating the camera once north-up is restored, allowing free rotation.
+          if (progress < 1) frame = requestAnimationFrame(returnNorth);
+        }
+        frame = requestAnimationFrame(returnNorth);
+      }
+    }
+    globe.flightCleanup = function () {
+      cancelAnimationFrame(frame);
+      cancelAnimationFrame(rippleFrame);
+      globe.scene().remove(group);
+      group.traverse(function (object) { if (object.geometry) object.geometry.dispose(); });
+      material.dispose();
+      labelTexture.dispose();
+      labelMaterial.dispose();
+      if (rippleMaterial) rippleMaterial.dispose();
+    };
+    tick(performance.now());
+  }
+
   function setLocations(globe, office, visitor) {
-    var markers = visitor ? [{ lat: visitor.lat, lng: visitor.lng, name: 'You' }] : [];
-    globe.pointsData([office].concat(markers)).labelsData(markers).htmlElementsData([office])
-      .pathsData(globe.countryBorders.concat(visitor ? [flightPath(office, visitor)] : []));
+    if (visitor && globe.flightVisitor === visitor) return;
+    globe.pointsData([office]).labelsData([]).htmlElementsData([office])
+      .pathsData(globe.countryBorders);
+    if (globe.flightVisitor !== visitor) {
+      globe.flightVisitor = visitor;
+      animateFlight(globe, office, visitor);
+    }
   }
 
   window.renderDistanceGlobe = async function (container, visitor) {
@@ -103,7 +331,7 @@
     var office = { lat: Number(container.dataset.latitude), lng: Number(container.dataset.longitude) };
     panel.pendingVisitor = visitor;
     if (panel.globeInstance) {
-      if (visitor && !panel.hasVisitor) { setLocations(panel.globeInstance, office, visitor); panel.hasVisitor = true; }
+      if (visitor) { setLocations(panel.globeInstance, office, visitor); panel.hasVisitor = true; }
       return;
     }
     if (panel.globeLoading) return;
@@ -115,7 +343,7 @@
     status.hidden = false;
     status.textContent = 'Preparing the globe…';
     try {
-      var assets = await Promise.all([loadLibrary(), loadCountries()]);
+      var assets = await Promise.all([loadLibrary(), loadCountries(), import('https://cdn.jsdelivr.net/npm/three@0.185.0/+esm'), loadLabelFont()]);
       var borders = assets[1].flatMap(function (country) {
         var geometry = country.geometry;
         var polygons = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
@@ -126,8 +354,8 @@
         .backgroundColor('rgba(0,0,0,0)')
         .showAtmosphere(false)
         // Keep polygon interiors above the ocean, including broad polar regions.
-        .polygonsData(assets[1]).polygonAltitude(0.01).polygonCapCurvatureResolution(2)
-        .polygonSideColor(() => null).polygonLabel(() => '')
+        .polygonsData(assets[1]).polygonAltitude(0.01).polygonCapCurvatureResolution(1)
+        .polygonSideColor(() => '#bfbfbc').polygonLabel(() => '')
         .polygonStrokeColor(() => null)
         .polygonsTransitionDuration(0)
         // Match the original polygon outline height with a slightly wider flat line.
@@ -135,12 +363,18 @@
         .pathPointLat(point => point[1]).pathPointLng(point => point[0])
         .pathPointAlt(point => point[2] === undefined ? 0.0101 : point[2])
         .pathResolution(0.5).pathStroke(path => path.flight ? 2.5 : 1.25).pathTransitionDuration(0)
-        .pointAltitude(0.025).pointRadius(0.7).pointLabel('name').pointsTransitionDuration(0)
-        .labelText('name').labelSize(2.8).labelDotRadius(0.45).labelAltitude(0.04)
+        .pointAltitude(0.025).pointRadius(point => 0.7 * (point.visitor ? point.scale : 1)).pointLabel('name').pointsTransitionDuration(0)
+        .labelTypeFace(assets[3]).labelText('name').labelSize(label => 3.5 * (label.scale || 1))
+        .labelDotRadius(label => 0.45 * (label.scale || 1)).labelAltitude(0.04)
         .labelDotOrientation(() => 'bottom')
         .labelLabel(() => '').labelsTransitionDuration(0)
         .htmlLat('lat').htmlLng('lng').htmlAltitude(0.025)
-        .htmlElement(createOfficePin).htmlTransitionDuration(0);
+        .htmlElement(createOfficePin).htmlTransitionDuration(0)
+        .ringLat('lat').ringLng('lng').ringAltitude(0.026)
+        .ringColor(() => t => 'rgba(217,71,64,' + (1 - t) + ')')
+        .ringMaxRadius(4).ringPropagationSpeed(3).ringRepeatPeriod(2500);
+      globe.flightThree = assets[2];
+      globe.flightContainer = container;
       globe.countryBorders = borders;
       setLocations(globe, office, panel.pendingVisitor);
       globe.camera().up.set(0, 1, 0);
@@ -167,10 +401,13 @@
       land.color.set('#bfbfbc');
       land.specular.set('#161616');
       land.shininess = 8;
-      globe.polygonCapMaterial(() => land).polygonSideMaterial(() => land)
+      // Solid, double-sided coastal walls join the raised land to the ocean.
+      var coast = land.clone();
+      coast.side = assets[2].DoubleSide;
+      globe.polygonCapMaterial(() => land).polygonSideMaterial(() => coast)
         .pathColor(path => path.flight ? '#d94740' : '#7c828b')
         .pointColor(() => '#d94740').arcColor(() => '#d94740')
-        .labelColor(() => '#253042');
+        .labelColor(label => label.distance ? '#d94740' : '#253042');
       var ambientLight = globe.lights().find(light => light.isAmbientLight);
       ambientLight.color.set('#ffffff');
       ambientLight.intensity = 1.2;
@@ -244,6 +481,7 @@
       status.hidden = true;
     } catch (error) {
       if (panel.globeInstance) {
+        if (panel.globeInstance.flightCleanup) panel.globeInstance.flightCleanup();
         panel.globeInstance.pauseAnimation();
         panel.globeInstance.renderer().dispose();
         panel.globeInstance = null;

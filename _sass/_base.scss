@@ -652,6 +652,10 @@ html { scroll-behavior: smooth; }
   @media (max-width: 575px) {
     .contact-visuals { grid-template-columns: minmax(0, 1fr); }
   }
+  @media (min-width: 992px) {
+    .contact-visuals > .distance-globe { grid-column: 1; grid-row: 1; }
+    .contact-visuals > .contact-map-slot { grid-column: 2; grid-row: 1; }
+  }
 }
 // Keep the backing solid during theme changes; transparency exposes the page fade.
 .contact-distance .distance-globe {
@@ -1506,3 +1510,16 @@ html.transition *:after {
     // Keep full attribution visible even when the embedded viewport is cropped.
   }
 }
+
+.precise-location {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--global-theme-color);
+  font: inherit;
+  cursor: pointer;
+  &:hover { text-decoration: underline; }
+  &:disabled { opacity: 0.6; cursor: wait; }
+}
+.precise-location-status { color: var(--global-text-color); }
+.location-waiting-dots { display: inline-block; min-width: 1.2em; text-align: left; }
