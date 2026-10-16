@@ -66,11 +66,11 @@ $(document).ready(function() {
                 preciseLocation = true;
                 updateDistance(position.coords.latitude, position.coords.longitude, true);
                 locationButton.disabled = false;
-                locationButton.hidden = true;
+                locationButton.hidden = false;
                 locationButton.textContent = 'Use my precise location';
-                locationPrompt.hidden = true;
+                locationPrompt.hidden = false;
                 locationStatus.textContent = '';
-                container.querySelector('.precise-location-control').hidden = true;
+                container.querySelector('.precise-location-control').style.visibility = 'hidden';
             }, locationFailed, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
         });
         function showGlobe() {
