@@ -1,4 +1,54 @@
 $(document).ready(function() {
+    // A shared tooltip outside the content mask, bounded by the publication column.
+    var publicationTooltip = document.createElement('div');
+    publicationTooltip.id = 'publication-tooltip';
+    publicationTooltip.className = 'publication-tooltip';
+    publicationTooltip.setAttribute('role', 'tooltip');
+    publicationTooltip.hidden = true;
+    document.body.appendChild(publicationTooltip);
+    var tooltipTarget = null;
+    function positionPublicationTooltip() {
+        if (!tooltipTarget) return;
+        var icon = tooltipTarget.getBoundingClientRect();
+        publicationTooltip.hidden = icon.bottom < 0 || icon.top > window.innerHeight;
+        if (publicationTooltip.hidden) return;
+        var column = tooltipTarget.closest('.col-sm-8').getBoundingClientRect();
+        var leftEdge = Math.max(8, column.left + 15);
+        var rightEdge = Math.min(document.documentElement.clientWidth - 8, column.right - 15);
+        publicationTooltip.style.maxWidth = Math.min(256, rightEdge - leftEdge) + 'px';
+        var tip = publicationTooltip.getBoundingClientRect();
+        var left = Math.max(leftEdge, Math.min(icon.left, rightEdge - tip.width));
+        var top = icon.top - tip.height - 6;
+        if (top < 8) top = icon.bottom + 6;
+        top = Math.max(8, Math.min(top, window.innerHeight - tip.height - 8));
+        publicationTooltip.style.left = left + 'px';
+        publicationTooltip.style.top = top + 'px';
+    }
+    function hidePublicationTooltip() {
+        if (tooltipTarget) tooltipTarget.removeAttribute('aria-describedby');
+        tooltipTarget = null;
+        publicationTooltip.hidden = true;
+    }
+    function showPublicationTooltip(event) {
+        if (event.type === 'mouseenter' && !window.matchMedia('(hover: hover)').matches) return;
+        hidePublicationTooltip();
+        tooltipTarget = event.currentTarget;
+        publicationTooltip.textContent = tooltipTarget.dataset.tooltip;
+        tooltipTarget.setAttribute('aria-describedby', publicationTooltip.id);
+        publicationTooltip.hidden = false;
+        positionPublicationTooltip();
+    }
+    document.querySelectorAll('.publication-icons > [data-tooltip]').forEach(function (icon) {
+        icon.addEventListener('mouseenter', showPublicationTooltip);
+        icon.addEventListener('focus', showPublicationTooltip);
+        icon.addEventListener('mouseleave', hidePublicationTooltip);
+        icon.addEventListener('blur', hidePublicationTooltip);
+    });
+    window.addEventListener('resize', positionPublicationTooltip);
+    window.addEventListener('scroll', positionPublicationTooltip, { passive: true, capture: true });
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') hidePublicationTooltip();
+    });
     document.querySelectorAll('.contact-distance').forEach(function (container) {
         var result = container.querySelector('.distance-result');
         var cachedMessage;

@@ -486,7 +486,6 @@ footer.sticky-bottom {
   mask-image: linear-gradient(to bottom, black 0, black var(--content-fade-start, calc(100vh - 180px)), transparent var(--content-fade-edge, 100vh));
   .cv-entry-layout { grid-template-columns: 170px minmax(0, 1fr); }
   .publications .row > .col-sm-8 { flex: 1; max-width: none; min-width: 0; }
-  .publications .title .publication-title-text { white-space: nowrap; }
 }
 @font-face {
   font-family: "VT323";
@@ -1155,31 +1154,6 @@ html { scroll-behavior: smooth; }
           border: 1px solid var(--global-theme-color);
         }
       }
-        .publication-icons > [data-tooltip] {
-          position: relative;
-          &::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: calc(100% + 6px);
-            left: -0.75rem;
-            z-index: 10;
-            padding: 2px 8px;
-            border: 1px solid var(--global-divider-color);
-            border-radius: 4px;
-            background: var(--global-card-bg-color);
-            color: var(--global-text-color);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-            font-family: inherit;
-            font-size: 0.75rem;
-            font-weight: normal;
-            line-height: 1.4;
-            white-space: nowrap;
-            visibility: hidden;
-            pointer-events: none;
-            transition: none !important;
-          }
-          &:hover::after { visibility: visible; }
-        }
         .publication-icons {
           display: inline-flex;
           align-items: center;
@@ -1219,7 +1193,8 @@ html { scroll-behavior: smooth; }
         }
 
       .title {
-        white-space: nowrap;
+        white-space: normal;
+        overflow-wrap: anywhere;
         display: block;
         font-weight: 700;
         &.publication-title-wrapped {
@@ -1232,8 +1207,8 @@ html { scroll-behavior: smooth; }
         .publication-title-text {
           min-width: 0;
           flex-shrink: 1;
-          white-space: nowrap;
-          overflow-wrap: normal;
+          white-space: normal;
+          overflow-wrap: anywhere;
           font-weight: 700;
           > a { font-weight: 700; }
         }
@@ -1334,15 +1309,23 @@ html { scroll-behavior: smooth; }
     .venue-type { margin-top: 0; }
   }
 }
-@media (hover: none), (pointer: coarse) {
-  .publications [data-tooltip]::after { display: none !important; }
-}
-@media (max-width: 991px) {
-  .publications ol.bibliography li .title,
-  .publications ol.bibliography li .title .publication-title-text {
-    white-space: normal;
-    overflow-wrap: anywhere;
-  }
+// Render outside the fading content so the tooltip cannot be clipped by its mask.
+.publication-tooltip {
+  position: fixed;
+  z-index: 1100;
+  width: max-content;
+  padding: 2px 8px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 4px;
+  background: var(--global-card-bg-color);
+  color: var(--global-text-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  font-size: 0.75rem;
+  font-weight: normal;
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  pointer-events: none;
 }
 
 .publications ol.bibliography li .bibtex.hidden {
