@@ -1,3 +1,7 @@
+"arXiv":
+  type: Preprint
+  url: https://arxiv.org/
+
 "OLA2021":
   type: Conference
   url: https://ola2021.sciencesconf.org/
